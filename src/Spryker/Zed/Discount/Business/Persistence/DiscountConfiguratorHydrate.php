@@ -57,7 +57,7 @@ class DiscountConfiguratorHydrate implements DiscountConfiguratorHydrateInterfac
     }
 
     /**
-     * @deprecated Use {@link findByIdDiscount()} instead.
+     * @deprecated Use `findByIdDiscount()` instead.
      *
      * @param int $idDiscount
      *

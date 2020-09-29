@@ -12,14 +12,6 @@ use Spryker\Zed\Discount\Business\Calculator\Discount;
 use Spryker\Zed\Discount\Business\Calculator\FilteredCalculator;
 use Spryker\Zed\Discount\Business\Calculator\Type\FixedType;
 use Spryker\Zed\Discount\Business\Calculator\Type\PercentageType;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeAdder;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeAdderInterface;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeClearer;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeClearerInterface;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeOperationMessageFinder;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeOperationMessageFinderInterface;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeRemover;
-use Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeRemoverInterface;
 use Spryker\Zed\Discount\Business\Checkout\DiscountOrderSaver;
 use Spryker\Zed\Discount\Business\Collector\ItemPriceCollector;
 use Spryker\Zed\Discount\Business\Collector\ItemQuantityCollector;
@@ -61,7 +53,6 @@ use Spryker\Zed\Discount\Business\QueryString\Tokenizer;
 use Spryker\Zed\Discount\Business\QueryString\Validator;
 use Spryker\Zed\Discount\Business\QuoteChangeObserver\QuoteChangeObserver;
 use Spryker\Zed\Discount\Business\QuoteChangeObserver\QuoteChangeObserverInterface;
-use Spryker\Zed\Discount\Business\QuoteDiscountValidator\QuoteDiscountMaxUsageValidator;
 use Spryker\Zed\Discount\Business\Voucher\VoucherCode;
 use Spryker\Zed\Discount\Business\Voucher\VoucherEngine;
 use Spryker\Zed\Discount\Business\Voucher\VoucherValidator;
@@ -71,7 +62,6 @@ use Spryker\Zed\Kernel\Business\AbstractBusinessFactory;
 /**
  * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
  * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
- * @method \Spryker\Zed\Discount\Persistence\DiscountRepositoryInterface getRepository()
  */
 class DiscountBusinessFactory extends AbstractBusinessFactory
 {
@@ -103,38 +93,6 @@ class DiscountBusinessFactory extends AbstractBusinessFactory
             $this->getQueryContainer(),
             $this->getMessengerFacade()
         );
-    }
-
-    /**
-     * @return \Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeAdderInterface
-     */
-    public function createVoucherCartCodeAdder(): VoucherCartCodeAdderInterface
-    {
-        return new VoucherCartCodeAdder();
-    }
-
-    /**
-     * @return \Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeRemoverInterface
-     */
-    public function createVoucherCartCodeRemover(): VoucherCartCodeRemoverInterface
-    {
-        return new VoucherCartCodeRemover();
-    }
-
-    /**
-     * @return \Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeClearerInterface
-     */
-    public function createVoucherCartCodeClearer(): VoucherCartCodeClearerInterface
-    {
-        return new VoucherCartCodeClearer();
-    }
-
-    /**
-     * @return \Spryker\Zed\Discount\Business\CartCode\VoucherCartCodeOperationMessageFinderInterface
-     */
-    public function createVoucherCartCodeOperationMessageFinder(): VoucherCartCodeOperationMessageFinderInterface
-    {
-        return new VoucherCartCodeOperationMessageFinder();
     }
 
     /**
@@ -224,14 +182,6 @@ class DiscountBusinessFactory extends AbstractBusinessFactory
     public function getCollectorPlugins()
     {
         return $this->getProvidedDependency(DiscountDependencyProvider::COLLECTOR_PLUGINS);
-    }
-
-    /**
-     * @return \Spryker\Zed\DiscountExtension\Dependency\Plugin\CollectedDiscountGroupingStrategyPluginInterface[]
-     */
-    public function getCollectedDiscountGroupingPlugins(): array
-    {
-        return $this->getProvidedDependency(DiscountDependencyProvider::COLLECTED_DISCOUNT_GROUPING_PLUGINS);
     }
 
     /**
@@ -532,7 +482,6 @@ class DiscountBusinessFactory extends AbstractBusinessFactory
             $this->getMessengerFacade(),
             $this->createDistributor(),
             $this->getCalculatorPlugins(),
-            $this->getCollectedDiscountGroupingPlugins(),
             $this->createDiscountableItemFilter()
         );
 
@@ -689,15 +638,5 @@ class DiscountBusinessFactory extends AbstractBusinessFactory
     public function createDiscountableItemTransformer(): DiscountableItemTransformerInterface
     {
         return new DiscountableItemTransformer();
-    }
-
-    /**
-     * @return \Spryker\Zed\Discount\Business\QuoteDiscountValidator\QuoteDiscountMaxUsageValidator
-     */
-    public function createQuoteVoucherDiscountMaxUsageValidator(): QuoteDiscountMaxUsageValidator
-    {
-        return new QuoteDiscountMaxUsageValidator(
-            $this->getRepository()
-        );
     }
 }

@@ -12,7 +12,6 @@ use Spryker\Zed\Discount\Business\QueryString\Tokenizer;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -26,7 +25,7 @@ class TokenizerTest extends Unit
     /**
      * @return void
      */
-    public function testWhenSpaceUsedShouldReturnEachWordAsAToken(): void
+    public function testWhenSpaceUsedShouldReturnEachWordAsAToken()
     {
         $tokenizer = $this->createTokenizer();
         $tokens = $tokenizer->tokenizeQueryString('one two     and three  ');
@@ -36,7 +35,7 @@ class TokenizerTest extends Unit
     /**
      * @return void
      */
-    public function testWhenQuotesUsedShouldThreadAsASingleTokenWhatIsInside(): void
+    public function testWhenQuotesUsedShouldThreadAsASingleTokenWhatIsInside()
     {
         $tokenizer = $this->createTokenizer();
         $tokens = $tokenizer->tokenizeQueryString('sku = "one two three" ');
@@ -47,7 +46,7 @@ class TokenizerTest extends Unit
     /**
      * @return void
      */
-    public function testWhenParenthesisIsUsedShouldBeUsedAsSeparateToken(): void
+    public function testWhenParenthesisIsUsedShouldBeUsedAsSeparateToken()
     {
         $tokenizer = $this->createTokenizer();
         $tokens = $tokenizer->tokenizeQueryString(' ( one and two) ');
@@ -58,7 +57,7 @@ class TokenizerTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Tokenizer
      */
-    protected function createTokenizer(): Tokenizer
+    protected function createTokenizer()
     {
         return new Tokenizer();
     }

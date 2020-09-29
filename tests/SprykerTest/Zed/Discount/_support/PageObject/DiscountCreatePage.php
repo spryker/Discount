@@ -38,7 +38,7 @@ class DiscountCreatePage
             'name' => 'Exclusive Valid Discount',
             'description' => 'test test test',
             'excl' => '1',
-            'calcType' => 'Fixed amount',
+            'calcType' => 'Calculator fixed',
             'amount' => '18,36',
             'applyTo' => 'attribute.width = \'15\'',
         ],
@@ -47,7 +47,7 @@ class DiscountCreatePage
             'name' => null,
             'description' => null,
             'excl' => null,
-            'calcType' => 'Fixed amount',
+            'calcType' => 'Calculator fixed',
             'amount' => null,
             'applyTo' => null,
         ],
@@ -56,7 +56,7 @@ class DiscountCreatePage
             'name' => 'Not Exclusive Valid Discount',
             'description' => 'test test test',
             'excl' => '0',
-            'calcType' => 'Fixed amount',
+            'calcType' => 'Calculator fixed',
             'amount' => '18,36',
             'applyTo' => 'attribute.width = \'15\'',
         ],
@@ -76,15 +76,15 @@ class DiscountCreatePage
     }
 
     /**
-     * @param string $dataTabId
+     * @param string $tabName
      *
      * @return $this
      */
-    public function tab(string $dataTabId)
+    public function tab($tabName)
     {
-        $xpath = sprintf('//div[@class="tabs-container"]/ul/li[@data-tab-content-id="%s"]/a', $dataTabId);
+        $xpath = sprintf('//div[@class="tabs-container"]/ul/li/a[contains(., "%s")]', $tabName);
 
-        $this->tester->comment("At [$dataTabId] Tab");
+        $this->tester->comment("At [$tabName] Tab");
         $this->tester->click($xpath);
 
         return $this;
@@ -106,7 +106,7 @@ class DiscountCreatePage
      *
      * @return void
      */
-    public function createDiscount(string $discountName, array $override = []): void
+    public function createDiscount($discountName, $override = [])
     {
         $i = $this->tester;
         $i->amZed();
@@ -130,13 +130,13 @@ class DiscountCreatePage
         !$data['validFrom'] ?: $i->fillField('#discount_discountGeneral_valid_from', $data['validFrom']);
         !$data['validTo'] ?: $i->fillField('#discount_discountGeneral_valid_to', $data['validTo']);
 
-        $this->tab('tab-content-discount');
+        $this->tab('Discount calculation');
         !$data['calcType'] ?: $i->selectOption('#discount_discountCalculator_calculator_plugin', $data['calcType']);
         !$data['amount'] ?: $i->fillField('#discount_discountCalculator_moneyValueCollection_0_gross_amount', $data['amount']);
         $i->click(self::BTN_CALCULATION_GET);
         !$data['applyTo'] ?: $i->fillField(self::FIELD_DISCOUNT_QUERY, $data['applyTo']);
 
-        $this->tab('tab-content-conditions');
+        $this->tab('Conditions');
         $i->click('#btn-condition-get');
         $i->fillField('#discount_discountCondition_decision_rule_query_string', $data['applyWhen']);
         $i->click('#create-discount-button');
@@ -150,7 +150,7 @@ class DiscountCreatePage
      *
      * @return void
      */
-    public function fillInDiscountRule(int $number, string $filter, string $operator, string $value): void
+    public function fillInDiscountRule($number, $filter, $operator, $value)
     {
         $i = $this->tester;
         $i->waitForElement("select[name=builder_calculation_rule_{$number}_filter]");
@@ -165,7 +165,7 @@ class DiscountCreatePage
      *
      * @return void
      */
-    public function changeDiscountGroupOperator(string $operator, string $group = '0'): void
+    public function changeDiscountGroupOperator($operator, $group = '0')
     {
         $this->tester->click(Locator::contains('label', $operator), "#builder_calculation_group_$group");
     }
@@ -175,7 +175,7 @@ class DiscountCreatePage
      *
      * @return void
      */
-    public function assertDiscountQuery(string $query): void
+    public function assertDiscountQuery($query)
     {
         $i = $this->tester;
         $i->click(self::BTN_CALCULATION_GET);

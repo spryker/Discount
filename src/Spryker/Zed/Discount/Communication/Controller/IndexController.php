@@ -21,7 +21,6 @@ use Symfony\Component\HttpFoundation\Request;
  * @method \Spryker\Zed\Discount\Communication\DiscountCommunicationFactory getFactory()
  * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
- * @method \Spryker\Zed\Discount\Persistence\DiscountRepositoryInterface getRepository()
  */
 class IndexController extends AbstractController
 {
@@ -30,11 +29,6 @@ class IndexController extends AbstractController
     public const URL_PARAM_ID_POOL = 'id-pool';
     public const URL_PARAM_VISIBILITY = 'visibility';
     public const URL_PARAM_REDIRECT_URL = 'redirect-url';
-
-    /**
-     * @uses \Spryker\Zed\Http\Communication\Plugin\Application\HttpApplicationPlugin::SERVICE_SUB_REQUEST
-     */
-    protected const SERVICE_SUB_REQUEST = 'sub_request';
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
@@ -82,22 +76,22 @@ class IndexController extends AbstractController
             ->getData($idDiscount);
 
         if ($discountConfiguratorTransfer === null) {
-            $this->addErrorMessage("Discount with id %s doesn't exist", ['%s' => $idDiscount]);
+            $this->addErrorMessage(sprintf('Discount with id %s doesn\'t exist', $idDiscount));
 
             return $this->redirectResponse($this->getFactory()->getConfig()->getDefaultRedirectUrl());
         }
 
         $discountForm = $this->getFactory()->getDiscountForm($idDiscount, $discountConfiguratorTransfer);
-        $isDiscountFormSubmittedSuccessfully = $this->isDiscountFormSubmittedSuccessfully($request, $discountForm);
+        $this->handleDiscountForm($request, $discountForm);
 
         $voucherFormDataProvider = $this->getFactory()->createVoucherFormDataProvider();
         $voucherForm = $this->getFactory()->getVoucherForm(
             $voucherFormDataProvider->getData($idDiscount)
         );
-        $isVoucherFormSubmittedSuccessfully = $this->isVoucherFormSubmittedSuccessfully($request, $voucherForm);
 
-        if ($isDiscountFormSubmittedSuccessfully || $isVoucherFormSubmittedSuccessfully) {
-            return $this->redirectResponse($this->createEditRedirectUrl($idDiscount));
+        $voucherFormHandleResponse = $this->handleVoucherForm($request, $voucherForm, $idDiscount);
+        if ($voucherFormHandleResponse instanceof RedirectResponse) {
+            return $voucherFormHandleResponse;
         }
 
         $voucherCodesTable = $this->renderVoucherCodeTable($request, $discountConfiguratorTransfer);
@@ -106,8 +100,6 @@ class IndexController extends AbstractController
             ->getFactory()
             ->createDiscountFormTabs($discountForm, $voucherForm, $discountConfiguratorTransfer);
 
-        $discountVisibilityForm = $this->getFactory()->createDiscountVisibilityForm();
-
         return [
             'discountForm' => $discountForm->createView(),
             'idDiscount' => $idDiscount,
@@ -115,27 +107,30 @@ class IndexController extends AbstractController
             'voucherForm' => $voucherForm->createView(),
             'discountConfigurator' => $discountConfiguratorTransfer,
             'discountFormTabs' => $discountFormTabs->createView(),
-            'discountVisibilityForm' => $discountVisibilityForm->createView(),
         ];
     }
 
     /**
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Symfony\Component\Form\FormInterface $voucherForm
+     * @param int $idDiscount
      *
-     * @return bool
+     * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    protected function isVoucherFormSubmittedSuccessfully(Request $request, FormInterface $voucherForm): bool
+    protected function handleVoucherForm(Request $request, FormInterface $voucherForm, $idDiscount)
     {
         $voucherForm->handleRequest($request);
 
         if ($voucherForm->isSubmitted() && $voucherForm->isValid()) {
             $voucherCreateInfoTransfer = $this->getFacade()->saveVoucherCodes($voucherForm->getData());
+            $this->addVoucherCreateMessage($voucherCreateInfoTransfer);
 
-            return $this->addVoucherCreateMessage($voucherCreateInfoTransfer);
+            return new RedirectResponse(
+                $this->createEditRedirectUrl($idDiscount)
+            );
         }
 
-        return false;
+        return [];
     }
 
     /**
@@ -152,7 +147,7 @@ class IndexController extends AbstractController
             ->getData($idDiscount);
 
         if ($discountConfiguratorTransfer === null) {
-            $this->addErrorMessage("Discount with id %s doesn't exist", ['%s' => $idDiscount]);
+            $this->addErrorMessage(sprintf('Discount with id %s doesn\'t exist', $idDiscount));
 
             return $this->redirectResponse($this->getFactory()->getConfig()->getDefaultRedirectUrl());
         }
@@ -182,7 +177,7 @@ class IndexController extends AbstractController
 
         $subRequest = clone $request;
         $subRequest->setMethod(Request::METHOD_POST);
-        $subRequest->request->set(static::URL_PARAM_ID_DISCOUNT, (string)$idDiscount);
+        $subRequest->request->set(static::URL_PARAM_ID_DISCOUNT, $idDiscount);
 
         $renderedBlocks = [];
         foreach ($discountViewBlockPlugins as $discountViewBlockPlugin) {
@@ -199,7 +194,7 @@ class IndexController extends AbstractController
      */
     protected function getSubRequestHandler()
     {
-        return $this->getApplication()->get(static::SERVICE_SUB_REQUEST);
+        return $this->getApplication()['sub_request'];
     }
 
     /**
@@ -250,20 +245,8 @@ class IndexController extends AbstractController
     public function toggleDiscountVisibilityAction(Request $request)
     {
         $idDiscount = $this->castId($request->query->get(self::URL_PARAM_ID_DISCOUNT));
-
-        $form = $this->getFactory()->createDiscountVisibilityForm()->handleRequest($request);
-        $redirectUrl = $request->query->get(static::URL_PARAM_REDIRECT_URL);
-        if (!$redirectUrl) {
-            $redirectUrl = $this->createEditRedirectUrl($idDiscount);
-        }
-
-        if (!$form->isSubmitted() || !$form->isValid()) {
-            $this->addErrorMessage('CSRF token is not valid.');
-
-            return $this->redirectResponse($redirectUrl);
-        }
-
-        $visibility = $request->get(static::URL_PARAM_VISIBILITY);
+        $visibility = $request->query->get(self::URL_PARAM_VISIBILITY);
+        $redirectUrl = $request->query->get(self::URL_PARAM_REDIRECT_URL);
 
         $isActive = mb_convert_case($visibility, MB_CASE_LOWER, 'UTF-8') == 'activate' ? true : false;
 
@@ -278,30 +261,28 @@ class IndexController extends AbstractController
             ));
         }
 
+        if (!$redirectUrl) {
+            $redirectUrl = $this->createEditRedirectUrl($idDiscount);
+        }
+
         return new RedirectResponse($redirectUrl);
     }
 
     /**
      * @param \Generated\Shared\Transfer\VoucherCreateInfoTransfer $voucherCreateInfoInterface
      *
-     * @return bool
+     * @return $this
      */
-    protected function addVoucherCreateMessage(VoucherCreateInfoTransfer $voucherCreateInfoInterface): bool
+    protected function addVoucherCreateMessage(VoucherCreateInfoTransfer $voucherCreateInfoInterface)
     {
         if ($voucherCreateInfoInterface->getType() === DiscountConstants::MESSAGE_TYPE_SUCCESS) {
-            $this->addSuccessMessage($voucherCreateInfoInterface->getMessage());
-
-            return true;
+            return $this->addSuccessMessage($voucherCreateInfoInterface->getMessage());
         }
         if ($voucherCreateInfoInterface->getType() === DiscountConstants::MESSAGE_TYPE_ERROR) {
-            $this->addErrorMessage($voucherCreateInfoInterface->getMessage());
-
-            return false;
+            return $this->addErrorMessage($voucherCreateInfoInterface->getMessage());
         }
 
-        $this->addInfoMessage($voucherCreateInfoInterface->getMessage());
-
-        return true;
+        return $this->addInfoMessage($voucherCreateInfoInterface->getMessage());
     }
 
     /**
@@ -313,7 +294,7 @@ class IndexController extends AbstractController
      */
     protected function getGeneratedCodesTable(Request $request, $idPool, $idDiscount)
     {
-        $batch = $request->query->getInt(self::URL_PARAM_BATCH_PARAMETER);
+        $batch = $request->query->get(self::URL_PARAM_BATCH_PARAMETER);
         $tableParameters = TableParameters::getTableParameters($request);
 
         return $this->getFactory()->createDiscountVoucherCodesTable(
@@ -364,7 +345,6 @@ class IndexController extends AbstractController
                 $discountConfiguratorTransfer->getDiscountGeneral()->getIdDiscount()
             )->render();
         }
-
         return $voucherCodesTable;
     }
 
@@ -372,9 +352,9 @@ class IndexController extends AbstractController
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Symfony\Component\Form\FormInterface $discountForm
      *
-     * @return bool
+     * @return void
      */
-    protected function isDiscountFormSubmittedSuccessfully(Request $request, FormInterface $discountForm): bool
+    protected function handleDiscountForm(Request $request, FormInterface $discountForm)
     {
         $discountForm->handleRequest($request);
 
@@ -384,13 +364,9 @@ class IndexController extends AbstractController
                 if ($isUpdated === true) {
                     $this->addSuccessMessage('Discount successfully updated.');
                 }
-
-                return true;
+            } else {
+                $this->addErrorMessage('Please fill all required fields.');
             }
-
-            $this->addErrorMessage('Please fill all required fields.');
         }
-
-        return false;
     }
 }

@@ -16,7 +16,6 @@ use Spryker\Zed\Discount\Business\Calculator\Type\FixedType;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -35,7 +34,7 @@ class FixedTest extends Unit
     /**
      * @return void
      */
-    public function testCalculateFixedShouldReturnTheGivenAmount(): void
+    public function testCalculateFixedShouldReturnTheGivenAmount()
     {
         $items = $this->getItems(
             [
@@ -55,7 +54,7 @@ class FixedTest extends Unit
     /**
      * @return void
      */
-    public function testCalculateFixedShouldReturnNullForGivenNegativeAmounts(): void
+    public function testCalculateFixedShouldReturnNullForGivenNegativeAmounts()
     {
         $items = $this->getItems(
             [
@@ -77,7 +76,7 @@ class FixedTest extends Unit
      *
      * @return \Generated\Shared\Transfer\DiscountTransfer
      */
-    protected function createDiscountTransfer(int $amount): DiscountTransfer
+    protected function createDiscountTransfer($amount)
     {
         $discountTransfer = new DiscountTransfer();
 
@@ -99,7 +98,7 @@ class FixedTest extends Unit
      *
      * @return \Generated\Shared\Transfer\ItemTransfer[]
      */
-    protected function getItems(array $grossPrices): array
+    protected function getItems(array $grossPrices)
     {
         $items = [];
 

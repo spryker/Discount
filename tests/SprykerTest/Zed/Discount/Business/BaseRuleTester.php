@@ -19,7 +19,7 @@ use Spryker\Zed\Discount\Business\QueryString\Converter\MoneyValueConverterInter
 class BaseRuleTester extends Unit
 {
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperatorsInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperatorsInterface
      */
     protected function createComparatorMock()
     {
@@ -27,7 +27,7 @@ class BaseRuleTester extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\Converter\MoneyValueConverterInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\Converter\MoneyValueConverterInterface
      */
     protected function createCurrencyConverterMock()
     {
@@ -35,11 +35,11 @@ class BaseRuleTester extends Unit
     }
 
     /**
-     * @param mixed $value
+     * @param string $value
      *
      * @return \Generated\Shared\Transfer\ClauseTransfer
      */
-    protected function createClauseTransfer($value): ClauseTransfer
+    protected function createClauseTransfer($value)
     {
         $clauseTransfer = new ClauseTransfer();
         $clauseTransfer->setValue($value);
@@ -52,7 +52,7 @@ class BaseRuleTester extends Unit
      *
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    protected function createQuoteTransfer(array $items = []): QuoteTransfer
+    protected function createQuoteTransfer(array $items = [])
     {
         $quoteTransfer = new QuoteTransfer();
         $quoteTransfer->setPriceMode('GROSS_MODE');
@@ -72,7 +72,7 @@ class BaseRuleTester extends Unit
      *
      * @return \Generated\Shared\Transfer\ItemTransfer
      */
-    protected function createItemTransfer(int $price = 0, int $quantity = 0, string $sku = ''): ItemTransfer
+    protected function createItemTransfer($price = 0, $quantity = 0, $sku = '')
     {
         $itemTransfer = new ItemTransfer();
         $itemTransfer->setUnitPrice($price);

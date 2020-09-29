@@ -14,7 +14,6 @@ use SprykerTest\Zed\Discount\Business\BaseRuleTester;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -28,7 +27,7 @@ class ItemQuantityCollectorTest extends BaseRuleTester
     /**
      * @return void
      */
-    public function testItemQuantityCollectorShouldReturnAllItemsMatchingQuantity(): void
+    public function testItemQuantityCollectorShouldReturnAllItemsMatchingQuantity()
     {
         $comparatorMock = $this->createComparatorMock();
         $comparatorMock->expects($this->at(0))
@@ -42,7 +41,6 @@ class ItemQuantityCollectorTest extends BaseRuleTester
         $itemPriceCollector = $this->createItemQuantityCollector($comparatorMock);
 
         $clauseTransfer = $this->createClauseTransfer(100);
-        $items = [];
         $items[] = $this->createItemTransfer(100, 5);
         $items[] = $this->createItemTransfer(120, 1);
         $quoteTransfer = $this->createQuoteTransfer($items);
@@ -56,9 +54,9 @@ class ItemQuantityCollectorTest extends BaseRuleTester
     /**
      * @param \Spryker\Zed\Discount\Business\QueryString\ComparatorOperatorsInterface|null $comparatorMock
      *
-     * @return \Spryker\Zed\Discount\Business\Collector\ItemQuantityCollector
+     * @return \Spryker\Zed\Discount\Business\Collector\ItemPriceCollector
      */
-    protected function createItemQuantityCollector(?ComparatorOperatorsInterface $comparatorMock = null): ItemQuantityCollector
+    protected function createItemQuantityCollector(?ComparatorOperatorsInterface $comparatorMock = null)
     {
         if (!$comparatorMock) {
             $comparatorMock = $this->createComparatorMock();

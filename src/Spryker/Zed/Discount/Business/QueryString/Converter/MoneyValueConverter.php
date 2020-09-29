@@ -35,10 +35,8 @@ class MoneyValueConverter implements MoneyValueConverterInterface
      */
     public function convertDecimalToCent(ClauseTransfer $clauseTransfer)
     {
-        if (
-            $clauseTransfer->getOperator() === IsNotIn::EXPRESSION ||
-            $clauseTransfer->getOperator() === IsIn::EXPRESSION
-        ) {
+        if ($clauseTransfer->getOperator() === IsNotIn::EXPRESSION ||
+            $clauseTransfer->getOperator() === IsIn::EXPRESSION) {
             $this->convertListPrice($clauseTransfer);
         } else {
             $this->convertSinglePrice($clauseTransfer);

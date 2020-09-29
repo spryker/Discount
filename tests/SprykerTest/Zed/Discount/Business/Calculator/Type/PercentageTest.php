@@ -16,7 +16,6 @@ use Spryker\Zed\Discount\Business\Exception\CalculatorException;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -36,7 +35,7 @@ class PercentageTest extends Unit
     /**
      * @return void
      */
-    public function testCalculatePercentageShouldNotGrantDiscountsHigherThanHundredPercent(): void
+    public function testCalculatePercentageShouldNotGrantDiscountsHigherThanHundredPercent()
     {
         $items = $this->getDiscountableItems(
             [
@@ -56,7 +55,7 @@ class PercentageTest extends Unit
     /**
      * @return void
      */
-    public function testCalculatePercentageShouldNotGrantDiscountsLessThanZeroPercent(): void
+    public function testCalculatePercentageShouldNotGrantDiscountsLessThanZeroPercent()
     {
         $items = $this->getDiscountableItems(
             [
@@ -76,7 +75,7 @@ class PercentageTest extends Unit
     /**
      * @return void
      */
-    public function testCalculatePercentageShouldThrowAnExceptionForNonNumericValues(): void
+    public function testCalculatePercentageShouldThrowAnExceptionForNonNumericValues()
     {
         $items = $this->getDiscountableItems(
             [
@@ -95,7 +94,7 @@ class PercentageTest extends Unit
     /**
      * @return void
      */
-    public function testCalculatePercentageShouldNotGiveNegativeDiscountAmounts(): void
+    public function testCalculatePercentageShouldNotGiveNegativeDiscountAmounts()
     {
         $items = $this->getDiscountableItems(
             [
@@ -115,7 +114,7 @@ class PercentageTest extends Unit
     /**
      * @return void
      */
-    public function testCalculatePercentageWhenQuantityIsNotSetShouldSetItToOne(): void
+    public function testCalculatePercentageWhenQuantityIsNotSetShouldSetItToOne()
     {
         $items = $this->getDiscountableItems(
             [
@@ -137,7 +136,7 @@ class PercentageTest extends Unit
      *
      * @return \Generated\Shared\Transfer\DiscountableItemTransfer[]
      */
-    protected function getDiscountableItems(array $grossPrices): array
+    protected function getDiscountableItems(array $grossPrices)
     {
         $items = [];
 

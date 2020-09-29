@@ -13,7 +13,6 @@ use Spryker\Zed\Discount\Communication\Plugin\Calculator\FixedPlugin;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -28,7 +27,7 @@ class FixedPluginTest extends Unit
     /**
      * @return void
      */
-    public function testTransformForPersistenceShouldConvertDecimalToInteger(): void
+    public function testTransformForPersistenceShouldConvertDecimalToInteger()
     {
         $plugin = new FixedPlugin();
 
@@ -39,21 +38,20 @@ class FixedPluginTest extends Unit
     /**
      * @return void
      */
-    public function testTransformFromPersistenceShouldConvertIntegerToDecimalWithoutSymbol(): void
+    public function testTransformFromPersistenceShouldConvertIntegerToDecimalWithoutSymbol()
     {
         $this->setLocaleForTest();
         $plugin = new FixedPlugin();
 
         $result = $plugin->transformFromPersistence(1113);
 
-        $this->assertSame(11.13, $result, '');
-        $this->assertEqualsWithDelta(11.13, $result, 0.001, '');
+        $this->assertEquals(11.13, $result, '', 0.001);
     }
 
     /**
      * @return void
      */
-    private function setLocaleForTest(): void
+    private function setLocaleForTest()
     {
         Store::getInstance()->setCurrentLocale('de_DE');
     }

@@ -15,7 +15,6 @@ use Spryker\Zed\Discount\Dependency\Plugin\DecisionRulePluginInterface;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -30,7 +29,7 @@ class MetaDataProviderTest extends Unit
     /**
      * @return void
      */
-    public function testGetAvailableFieldsShouldReturnFieldProvidedByPlugins(): void
+    public function testGetAvailableFieldsShouldReturnFieldProvidedByPlugins()
     {
         $fieldName = 'sample field';
         $decisionRulePluginMock = $this->createDecisionRulePluginMock();
@@ -44,13 +43,13 @@ class MetaDataProviderTest extends Unit
         $availableFields = $metaDataProvider->getAvailableFields();
 
         $this->assertCount(1, $availableFields);
-        $this->assertSame($fieldName, $availableFields[0]);
+        $this->assertEquals($fieldName, $availableFields[0]);
     }
 
     /**
      * @return void
      */
-    public function testIsFieldAvailableReturnsTrueIfFieldIsAvailable(): void
+    public function testIsFieldAvailableReturnsTrueIfFieldIsAvailable()
     {
         // Assign
         $fieldName = 'sample field';
@@ -72,7 +71,7 @@ class MetaDataProviderTest extends Unit
     /**
      * @return void
      */
-    public function testIsFieldAvailableReturnsFalseIfFieldIsNotAvailable(): void
+    public function testIsFieldAvailableReturnsFalseIfFieldIsNotAvailable()
     {
         // Assign
         $fieldName = 'sample field';
@@ -95,7 +94,7 @@ class MetaDataProviderTest extends Unit
     /**
      * @return void
      */
-    public function testGetAcceptedTypesByFieldNameShouldReturnAcceptedDateTypesForGivenPlugin(): void
+    public function testGetAcceptedTypesByFieldNameShouldReturnAcceptedDateTypesForGivenPlugin()
     {
         $decisionRulePluginMock = $this->createDecisionRulePluginMock();
 
@@ -113,13 +112,13 @@ class MetaDataProviderTest extends Unit
         $acceptedDataTypes = $metaDataProvider->getAcceptedTypesByFieldName($fieldName);
 
         $this->assertCount(1, $acceptedDataTypes);
-        $this->assertSame(ComparatorOperators::TYPE_NUMBER, $acceptedDataTypes[0]);
+        $this->assertEquals(ComparatorOperators::TYPE_NUMBER, $acceptedDataTypes[0]);
     }
 
     /**
      * @return void
      */
-    public function testAvailableOperatorExpressionsShouldReturnAllOperatorExpressions(): void
+    public function testAvailableOperatorExpressionsShouldReturnAllOperatorExpressions()
     {
         $decisionRulePluginMock = $this->createDecisionRulePluginMock();
 
@@ -145,13 +144,13 @@ class MetaDataProviderTest extends Unit
         $comparatorExpressions = $metaDataProvider->getAvailableOperatorExpressionsForField($fieldName);
 
         $this->assertCount(1, $comparatorExpressions);
-        $this->assertSame($comparatorExpression, $comparatorExpressions[0]);
+        $this->assertEquals($comparatorExpression, $comparatorExpressions[0]);
     }
 
     /**
      * @return void
      */
-    public function testGetLogicalComparatorsShouldReturnListOfOperatorsProvidedByComparator(): void
+    public function testGetLogicalComparatorsShouldReturnListOfOperatorsProvidedByComparator()
     {
         $logicalComparatorsMock = $this->createLogicalComparatorsMock();
         $logicalComparatorsMock->expects($this->once())
@@ -171,11 +170,8 @@ class MetaDataProviderTest extends Unit
      *
      * @return \Spryker\Zed\Discount\Business\QueryString\Specification\MetaData\MetaDataProvider
      */
-    protected function createMetaDataProvider(
-        ?DecisionRulePluginInterface $decisionRulePluginMock = null,
-        ?ComparatorOperators $comparatorOperators = null,
-        ?LogicalComparators $logicalComparatorsMock = null
-    ): MetaDataProvider {
+    protected function createMetaDataProvider($decisionRulePluginMock = null, $comparatorOperators = null, $logicalComparatorsMock = null)
+    {
         if (!isset($decisionRulePluginMock)) {
             $decisionRulePluginMock = $this->createDecisionRulePluginMock();
         }
@@ -198,17 +194,17 @@ class MetaDataProviderTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Dependency\Plugin\DecisionRulePluginInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Dependency\Plugin\DecisionRulePluginInterface
      */
-    protected function createDecisionRulePluginMock(): DecisionRulePluginInterface
+    protected function createDecisionRulePluginMock()
     {
         return $this->getMockBuilder(DecisionRulePluginInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperators
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperators
      */
-    protected function createComparatorOperatorsMock(): ComparatorOperators
+    protected function createComparatorOperatorsMock()
     {
         return $this->getMockBuilder(ComparatorOperators::class)
             ->disableOriginalConstructor()
@@ -216,9 +212,9 @@ class MetaDataProviderTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\LogicalComparators
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\LogicalComparators
      */
-    protected function createLogicalComparatorsMock(): LogicalComparators
+    protected function createLogicalComparatorsMock()
     {
         return $this->getMockBuilder(LogicalComparators::class)->getMock();
     }

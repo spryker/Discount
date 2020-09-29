@@ -13,13 +13,11 @@ use Spryker\Zed\Discount\Business\QueryString\Comparator\IsIn;
 use Spryker\Zed\Discount\Business\QueryString\Comparator\IsNotIn;
 use Spryker\Zed\Discount\Business\QueryString\ComparatorOperators;
 use Spryker\Zed\Discount\Business\QueryString\Converter\MoneyValueConverter;
-use Spryker\Zed\Discount\Business\QueryString\Converter\MoneyValueConverterInterface;
 use Spryker\Zed\Discount\Dependency\Facade\DiscountToMoneyBridge;
 use Spryker\Zed\Money\Business\MoneyFacade;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -34,7 +32,7 @@ class MoneyValueConverterTest extends Unit
     /**
      * @return void
      */
-    public function testConvertDecimalToCentWhenIsNotInUsedShouldUpdateAllItems(): void
+    public function testConvertDecimalToCentWhenIsNotInUsedShouldUpdateAllItems()
     {
         $currencyConverterMock = $this->createMoneyValueConverter();
 
@@ -47,15 +45,15 @@ class MoneyValueConverterTest extends Unit
 
         $convertedValues = explode(ComparatorOperators::LIST_DELIMITER, $clauseTransfer->getValue());
 
-        $this->assertSame('1000', $convertedValues[0]);
-        $this->assertSame('1212', $convertedValues[1]);
-        $this->assertSame('1230', $convertedValues[2]);
+        $this->assertEquals(1000, $convertedValues[0]);
+        $this->assertEquals(1212, $convertedValues[1]);
+        $this->assertEquals(1230, $convertedValues[2]);
     }
 
     /**
      * @return void
      */
-    public function testConvertDecimalToCentWhenIsInUsedShouldUpdateAllItems(): void
+    public function testConvertDecimalToCentWhenIsInUsedShouldUpdateAllItems()
     {
         $currencyConverterMock = $this->createMoneyValueConverter();
 
@@ -68,15 +66,15 @@ class MoneyValueConverterTest extends Unit
 
         $convertedValues = explode(ComparatorOperators::LIST_DELIMITER, $clauseTransfer->getValue());
 
-        $this->assertSame('1000', $convertedValues[0]);
-        $this->assertSame('1212', $convertedValues[1]);
-        $this->assertSame('1230', $convertedValues[2]);
+        $this->assertEquals(1000, $convertedValues[0]);
+        $this->assertEquals(1212, $convertedValues[1]);
+        $this->assertEquals(1230, $convertedValues[2]);
     }
 
     /**
      * @return void
      */
-    public function testConvertDecimalToCentWhenSingleValueUsedShouldUpdateAllItems(): void
+    public function testConvertDecimalToCentWhenSingleValueUsedShouldUpdateAllItems()
     {
         $currencyConverterMock = $this->createMoneyValueConverter();
 
@@ -86,13 +84,13 @@ class MoneyValueConverterTest extends Unit
 
         $currencyConverterMock->convertDecimalToCent($clauseTransfer);
 
-        $this->assertSame('1050', $clauseTransfer->getValue());
+        $this->assertEquals(1050, $clauseTransfer->getValue());
     }
 
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Converter\MoneyValueConverterInterface
      */
-    protected function createMoneyValueConverter(): MoneyValueConverterInterface
+    protected function createMoneyValueConverter()
     {
         $discountToMoneyBridge = new DiscountToMoneyBridge(new MoneyFacade());
 

@@ -30,8 +30,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     public const ALIAS_VOUCHER_POOL_NAME = 'voucher_pool';
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param string $code
@@ -46,8 +44,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return \Orm\Zed\Discount\Persistence\SpyDiscountQuery
@@ -76,8 +72,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idStore
@@ -104,8 +98,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idStore
@@ -124,8 +116,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return \Orm\Zed\Discount\Persistence\SpyDiscountVoucherPoolQuery
@@ -137,8 +127,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return \Orm\Zed\Discount\Persistence\SpyDiscountQuery
@@ -150,8 +138,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return \Orm\Zed\Discount\Persistence\SpyDiscountVoucherQuery
@@ -165,8 +151,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return \Orm\Zed\Discount\Persistence\SpyDiscountVoucherPoolQuery
@@ -178,8 +162,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param array $codes
@@ -194,8 +176,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idVoucherCode
@@ -212,8 +192,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idVoucherPool
@@ -228,8 +206,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idVoucher
@@ -244,8 +220,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param string $discountName
@@ -260,8 +234,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return \Orm\Zed\Sales\Persistence\SpySalesDiscountQuery
@@ -272,8 +244,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idDiscountAmount
@@ -288,8 +258,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idDiscount
@@ -306,8 +274,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idDiscount
@@ -323,8 +289,6 @@ class DiscountQueryContainer extends AbstractQueryContainer implements DiscountQ
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $idDiscount

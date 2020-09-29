@@ -16,7 +16,6 @@ use Spryker\Zed\Discount\Business\QueryString\Specification\MetaData\MetaDataPro
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -30,7 +29,7 @@ class ClauseValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateWhenInvalidComparatorUsedShouldThrowException(): void
+    public function testValidateWhenInvalidComparatorUsedShouldThrowException()
     {
         $this->expectException(QueryStringException::class);
 
@@ -45,7 +44,7 @@ class ClauseValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateWhenFieldNameContainsInvalidCharactersShouldThrowExpeption(): void
+    public function testValidateWhenFieldNameContainsInvalidCharactersShouldThrowExpeption()
     {
         $this->expectException(QueryStringException::class);
 
@@ -64,7 +63,7 @@ class ClauseValidatorTest extends Unit
      *
      * @return void
      */
-    public function testValidateWhenFieldIsNotWithingRegisteredRulePlugins(): void
+    public function testValidateWhenFieldIsNotWithingRegisteredRulePlugins()
     {
         $this->expectException(QueryStringException::class);
 
@@ -92,7 +91,7 @@ class ClauseValidatorTest extends Unit
      *
      * @return void
      */
-    public function testValidateWhenFieldIsValidShouldNotThrowExceptions(): void
+    public function testValidateWhenFieldIsValidShouldNotThrowExceptions()
     {
         $comparatorOperatorsMock = $this->createComparatorOperatorsMock();
         $comparatorOperatorsMock->method('isExistingComparator')
@@ -119,7 +118,8 @@ class ClauseValidatorTest extends Unit
     protected function createClauseValidator(
         ?ComparatorOperatorsInterface $comparatorOperatorsMock = null,
         ?MetaDataProviderInterface $metaDataProviderMock = null
-    ): ClauseValidator {
+    ) {
+
         if (!$comparatorOperatorsMock) {
             $comparatorOperatorsMock = $this->createComparatorOperatorsMock();
         }
@@ -132,17 +132,17 @@ class ClauseValidatorTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperatorsInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperatorsInterface
      */
-    protected function createComparatorOperatorsMock(): ComparatorOperatorsInterface
+    protected function createComparatorOperatorsMock()
     {
         return $this->getMockBuilder(ComparatorOperatorsInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\MetaData\MetaDataProviderInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\MetaData\MetaDataProviderInterface
      */
-    protected function createMetaDataProviderMock(): MetaDataProviderInterface
+    protected function createMetaDataProviderMock()
     {
         return $this->getMockBuilder(MetaDataProviderInterface::class)->getMock();
     }
@@ -150,7 +150,7 @@ class ClauseValidatorTest extends Unit
     /**
      * @return \Generated\Shared\Transfer\ClauseTransfer
      */
-    protected function createClauseTransfer(): ClauseTransfer
+    protected function createClauseTransfer()
     {
         return new ClauseTransfer();
     }

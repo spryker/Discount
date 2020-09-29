@@ -14,7 +14,6 @@ use SprykerTest\Zed\Discount\Business\BaseRuleTester;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -28,7 +27,7 @@ class ItemPriceCollectorTest extends BaseRuleTester
     /**
      * @return void
      */
-    public function testCollectWhenMatchesPriceShouldReturnListOfDiscountableItems(): void
+    public function testCollectWhenMatchesPriceShouldReturnListOfDiscountableItems()
     {
         $comparatorMock = $this->createComparatorMock();
         $comparatorMock->expects($this->at(0))
@@ -42,7 +41,6 @@ class ItemPriceCollectorTest extends BaseRuleTester
         $itemPriceCollector = $this->createItemPriceCollector($comparatorMock);
 
         $clauseTransfer = $this->createClauseTransfer(100);
-        $items = [];
         $items[] = $this->createItemTransfer(100);
         $items[] = $this->createItemTransfer(120);
         $quoteTransfer = $this->createQuoteTransfer($items);
@@ -58,7 +56,7 @@ class ItemPriceCollectorTest extends BaseRuleTester
      *
      * @return \Spryker\Zed\Discount\Business\Collector\ItemPriceCollector
      */
-    protected function createItemPriceCollector(?ComparatorOperatorsInterface $comparatorMock = null): ItemPriceCollector
+    protected function createItemPriceCollector(?ComparatorOperatorsInterface $comparatorMock = null)
     {
         if (!$comparatorMock) {
             $comparatorMock = $this->createComparatorMock();

@@ -15,7 +15,6 @@ use Spryker\Zed\Discount\Business\QueryString\ComparatorOperators;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenComparatorEvaluatesToTrueShouldReturnTrue(): void
+    public function testCompareWhenComparatorEvaluatesToTrueShouldReturnTrue()
     {
         $equalComparatorMock = $this->createComparatorMock();
         $equalComparatorMock->expects($this->once())
@@ -64,7 +63,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenComparatorNotFoundShouldThrowException(): void
+    public function testCompareWhenComparatorNotFoundShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -84,7 +83,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenComparatorCannotHandleTypeShouldThrowException(): void
+    public function testCompareWhenComparatorCannotHandleTypeShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -116,7 +115,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testComparatorExpressionsByTypesShouldReturnAllOperatorsMatchingDataType(): void
+    public function testComparatorExpressionsByTypesShouldReturnAllOperatorsMatchingDataType()
     {
         $equalComparatorMock = $this->createComparatorMock();
         $equalComparatorMock->expects($this->once())
@@ -152,14 +151,14 @@ class ComparatorOperatorsTest extends Unit
         $expressions = $comparatorOperators->getOperatorExpressionsByTypes([ComparatorOperators::TYPE_NUMBER]);
 
         $this->assertCount(2, $expressions);
-        $this->assertSame('=', $expressions[0]);
-        $this->assertSame('>', $expressions[1]);
+        $this->assertEquals('=', $expressions[0]);
+        $this->assertEquals('>', $expressions[1]);
     }
 
     /**
      * @return void
      */
-    public function testGetAvailableComparatorShouldReturnAllAvailableExpressions(): void
+    public function testGetAvailableComparatorShouldReturnAllAvailableExpressions()
     {
         $equalComparatorMock = $this->createComparatorMock();
         $equalComparatorMock->expects($this->once())
@@ -176,14 +175,14 @@ class ComparatorOperatorsTest extends Unit
         $expressions = $comparatorOperators->getAvailableComparatorExpressions();
 
         $this->assertCount(2, $expressions);
-        $this->assertSame('=', $expressions[0]);
-        $this->assertSame('>', $expressions[1]);
+        $this->assertEquals('=', $expressions[0]);
+        $this->assertEquals('>', $expressions[1]);
     }
 
     /**
      * @return void
      */
-    public function testGetCompoundComparatorExpressions(): void
+    public function testGetCompoundComparatorExpressions()
     {
         $combinedOperator = 'combined operator';
         $equalComparatorMock = $this->createComparatorMock();
@@ -206,7 +205,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testIsValidComparatorWhenValidShouldReturnTrue(): void
+    public function testIsValidComparatorWhenValidShouldReturnTrue()
     {
         $equalComparatorMock = $this->createComparatorMock();
         $equalComparatorMock->expects($this->once())
@@ -225,7 +224,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testIsValidComparatorWhenInValidShouldReturnFalse(): void
+    public function testIsValidComparatorWhenInValidShouldReturnFalse()
     {
         $equalComparatorMock = $this->createComparatorMock();
         $equalComparatorMock->expects($this->once())
@@ -244,7 +243,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenUsingMatchAllIdentifierShouldAlwaysReturnFalse(): void
+    public function testCompareWhenUsingMatchAllIdentifierShouldAlwaysReturnFalse()
     {
         $comparatorOperators = $this->createComparatorOperators([]);
 
@@ -259,7 +258,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueIsNotProvidedShouldReturnFalse(): void
+    public function testCompareWhenValueIsNotProvidedShouldReturnFalse()
     {
         $comparatorOperators = $this->createComparatorOperators([]);
 
@@ -274,7 +273,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueIsNumericZeroProvidedShouldReturnTrue(): void
+    public function testCompareWhenValueIsNumericZeroProvidedShouldReturnTrue()
     {
         $comparatorOperators = $this->createComparatorOperators([]);
 
@@ -289,7 +288,7 @@ class ComparatorOperatorsTest extends Unit
     /**
      * @return void
      */
-    public function testWhenNoneOfComparatorsAcceptsClauseShouldThrowException(): void
+    public function testWhenNoneOfComparatorsAcceptsClauseShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -313,15 +312,15 @@ class ComparatorOperatorsTest extends Unit
      *
      * @return \Spryker\Zed\Discount\Business\QueryString\ComparatorOperators
      */
-    protected function createComparatorOperators(array $comparators): ComparatorOperators
+    protected function createComparatorOperators(array $comparators)
     {
         return new ComparatorOperators($comparators);
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\Comparator\ComparatorInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\Comparator\ComparatorInterface
      */
-    protected function createComparatorMock(): ComparatorInterface
+    protected function createComparatorMock()
     {
         return $this->getMockBuilder(ComparatorInterface::class)->getMock();
     }

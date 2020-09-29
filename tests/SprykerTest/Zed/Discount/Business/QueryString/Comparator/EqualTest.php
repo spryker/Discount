@@ -14,7 +14,6 @@ use Spryker\Zed\Discount\Business\QueryString\Comparator\Equal;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class EqualTest extends Unit
     /**
      * @return void
      */
-    public function testAcceptShouldReturnTrueWhenEqualExpressionProvided(): void
+    public function testAcceptShouldReturnTrueWhenEqualExpressionProvided()
     {
         $equal = $this->createEqual();
 
@@ -44,7 +43,7 @@ class EqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueMatchingClauseShouldReturnTrue(): void
+    public function testCompareWhenValueMatchingClauseShouldReturnTrue()
     {
         $equal = $this->createEqual();
 
@@ -59,7 +58,7 @@ class EqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueNotMatchingClauseShouldReturnFalse(): void
+    public function testCompareWhenValueNotMatchingClauseShouldReturnFalse()
     {
         $equal = $this->createEqual();
 
@@ -74,7 +73,7 @@ class EqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenNonScalarValueUsedShouldThrowException(): void
+    public function testCompareWhenNonScalarValueUsedShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -88,7 +87,7 @@ class EqualTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Comparator\Equal
      */
-    protected function createEqual(): Equal
+    protected function createEqual()
     {
         return new Equal();
     }

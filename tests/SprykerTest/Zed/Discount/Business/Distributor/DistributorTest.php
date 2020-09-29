@@ -14,12 +14,10 @@ use Generated\Shared\Transfer\DiscountableItemTransfer;
 use Generated\Shared\Transfer\DiscountTransfer;
 use Spryker\Zed\Discount\Business\DiscountFacade;
 use Spryker\Zed\Discount\Business\Distributor\DiscountableItem\DiscountableItemTransformer;
-use Spryker\Zed\Discount\Business\Distributor\DiscountableItem\DiscountableItemTransformerInterface;
 use Spryker\Zed\Discount\Business\Distributor\Distributor;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -53,7 +51,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    protected function setUp(): void
+    protected function setUp()
     {
         parent::setUp();
 
@@ -63,7 +61,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    public function testDistributeAmountLimitTheDiscountAmountToTheObjectGrossPrice(): void
+    public function testDistributeAmountLimitTheDiscountAmountToTheObjectGrossPrice()
     {
         $items = $this->getItems(
             [
@@ -82,17 +80,15 @@ class DistributorTest extends Unit
 
         $this->discountFacade->distributeAmount($collectedDiscountTransfer);
 
-        foreach ($items as $item) {
-            /** @var \Generated\Shared\Transfer\CalculatedDiscountTransfer $calculatedDiscountTransfer */
-            $calculatedDiscountTransfer = $item->getOriginalItemCalculatedDiscounts()[0];
-            $this->assertSame($item->getUnitPrice(), $calculatedDiscountTransfer->getUnitAmount());
-        }
+        $this->assertEquals($items[0]->getUnitPrice(), current($items[0]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals($items[1]->getUnitPrice(), current($items[1]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals($items[2]->getUnitPrice(), current($items[2]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
     }
 
     /**
      * @return void
      */
-    public function testDistributeShouldDistributeAmountEquallyToEqualExpensiveObjects(): void
+    public function testDistributeShouldDistributeAmountEquallyToEqualExpensiveObjects()
     {
         $items = $this->getItems(
             [
@@ -111,17 +107,15 @@ class DistributorTest extends Unit
 
         $this->discountFacade->distributeAmount($collectedDiscountTransfer);
 
-        foreach ($items as $item) {
-            /** @var \Generated\Shared\Transfer\CalculatedDiscountTransfer $calculatedDiscountTransfer */
-            $calculatedDiscountTransfer = $item->getOriginalItemCalculatedDiscounts()[0];
-            $this->assertSame(static::DISCOUNT_AMOUNT_100, $calculatedDiscountTransfer->getUnitAmount());
-        }
+        $this->assertEquals(self::DISCOUNT_AMOUNT_300 / 3, current($items[0]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals(self::DISCOUNT_AMOUNT_300 / 3, current($items[1]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals(self::DISCOUNT_AMOUNT_300 / 3, current($items[2]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
     }
 
     /**
      * @return void
      */
-    public function testDistributeShouldDistributeAmountWithRoundingErrorCorrection(): void
+    public function testDistributeShouldDistributeAmountWithRoundingErrorCorrection()
     {
         $items = $this->getItems(
             [
@@ -140,26 +134,15 @@ class DistributorTest extends Unit
 
         $this->discountFacade->distributeAmount($collectedDiscountTransfer);
 
-        $discountAmountMap = [
-            static::DISCOUNT_AMOUNT_13333,
-            static::DISCOUNT_AMOUNT_13334,
-            static::DISCOUNT_AMOUNT_13333,
-        ];
-        foreach ($items as $key => $item) {
-            if (!isset($discountAmountMap[$key])) {
-                continue;
-            }
-
-            /** @var \Generated\Shared\Transfer\CalculatedDiscountTransfer $calculatedDiscountTransfer */
-            $calculatedDiscountTransfer = $item->getOriginalItemCalculatedDiscounts()[0];
-            $this->assertEquals($discountAmountMap[$key], $calculatedDiscountTransfer->getUnitAmount());
-        }
+        $this->assertEquals(self::DISCOUNT_AMOUNT_13333, current($items[0]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals(self::DISCOUNT_AMOUNT_13334, current($items[1]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals(self::DISCOUNT_AMOUNT_13333, current($items[2]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
     }
 
     /**
      * @return void
      */
-    public function testDistributeShouldDistributeDiscountAmountInRelationToObjectGrossPrice(): void
+    public function testDistributeShouldDistributeDiscountAmountInRelationToObjectGrossPrice()
     {
         $items = $this->getItems(
             [
@@ -178,26 +161,15 @@ class DistributorTest extends Unit
 
         $this->discountFacade->distributeAmount($collectedDiscountTransfer);
 
-        $discountAmountMap = [
-            static::DISCOUNT_AMOUNT_100,
-            static::DISCOUNT_AMOUNT_200,
-            static::DISCOUNT_AMOUNT_400,
-        ];
-        foreach ($items as $key => $item) {
-            if (!isset($discountAmountMap[$key])) {
-                continue;
-            }
-
-            /** @var \Generated\Shared\Transfer\CalculatedDiscountTransfer $calculatedDiscountTransfer */
-            $calculatedDiscountTransfer = $item->getOriginalItemCalculatedDiscounts()[0];
-            $this->assertEquals($discountAmountMap[$key], $calculatedDiscountTransfer->getUnitAmount());
-        }
+        $this->assertEquals(self::DISCOUNT_AMOUNT_100, current($items[0]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals(self::DISCOUNT_AMOUNT_200, current($items[1]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
+        $this->assertEquals(self::DISCOUNT_AMOUNT_400, current($items[2]->getOriginalItemCalculatedDiscounts())->getUnitAmount());
     }
 
     /**
      * @return void
      */
-    public function testDistributionForNegativeDiscountAmountShouldNotDistributeAnyDiscounts(): void
+    public function testDistributionForNegativeDiscountAmountShouldNotDistributeAnyDiscounts()
     {
         $items = $this->getItems(
             [
@@ -216,15 +188,15 @@ class DistributorTest extends Unit
 
         $this->discountFacade->distributeAmount($collectedDiscountTransfer);
 
-        $this->assertSame(0, $items[0]->getOriginalItemCalculatedDiscounts()->count());
-        $this->assertSame(0, $items[1]->getOriginalItemCalculatedDiscounts()->count());
-        $this->assertSame(0, $items[2]->getOriginalItemCalculatedDiscounts()->count());
+        $this->assertEquals(0, $items[0]->getOriginalItemCalculatedDiscounts()->count());
+        $this->assertEquals(0, $items[1]->getOriginalItemCalculatedDiscounts()->count());
+        $this->assertEquals(0, $items[2]->getOriginalItemCalculatedDiscounts()->count());
     }
 
     /**
      * @return void
      */
-    public function testDistributeShouldNotDistributeDiscountsForObjectsWithZeroGrossPrices(): void
+    public function testDistributeShouldNotDistributeDiscountsForObjectsWithZeroGrossPrices()
     {
         $items = $this->getItems(
             [
@@ -243,15 +215,15 @@ class DistributorTest extends Unit
 
         $this->discountFacade->distributeAmount($collectedDiscountTransfer);
 
-        $this->assertSame(0, $items[0]->getOriginalItemCalculatedDiscounts()->count());
-        $this->assertSame(0, $items[1]->getOriginalItemCalculatedDiscounts()->count());
-        $this->assertSame(0, $items[2]->getOriginalItemCalculatedDiscounts()->count());
+        $this->assertEquals(0, $items[0]->getOriginalItemCalculatedDiscounts()->count());
+        $this->assertEquals(0, $items[1]->getOriginalItemCalculatedDiscounts()->count());
+        $this->assertEquals(0, $items[2]->getOriginalItemCalculatedDiscounts()->count());
     }
 
     /**
      * @param array $grossPrices
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\DiscountableItemTransfer[]
+     * @return \Generated\Shared\Transfer\DiscountableItemTransfer[]
      */
     protected function getItems(array $grossPrices)
     {
@@ -271,7 +243,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    public function testWhenDiscountAmountCouldNotEvenlySplitShouldAdjustDistributedAmount(): void
+    public function testWhenDiscountAmountCouldNotEvenlySplitShouldAdjustDistributedAmount()
     {
         $distributor = $this->createDistributor();
         $discountableObjects = $this->createDiscountableObjects([
@@ -306,7 +278,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    public function testWhenTotalAmountIsNegativeShouldTerminateDistribution(): void
+    public function testWhenTotalAmountIsNegativeShouldTerminateDistribution()
     {
         $distributor = $this->createDistributor();
 
@@ -341,7 +313,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    public function testWhenTotalDiscountAmountIsNegativeShouldTerminateDistribution(): void
+    public function testWhenTotalDiscountAmountIsNegativeShouldTerminateDistribution()
     {
         $distributor = $this->createDistributor();
 
@@ -372,7 +344,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    public function testWhenTotalDiscountAmountIsMoreThanTotalGrossAmountShouldUseTotalGrossAmount(): void
+    public function testWhenTotalDiscountAmountIsMoreThanTotalGrossAmountShouldUseTotalGrossAmount()
     {
         $distributor = $this->createDistributor();
 
@@ -403,7 +375,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    public function testWhenDiscountableItemWhenQuantityIsMissingShouldUseOneByDefault(): void
+    public function testWhenDiscountableItemWhenQuantityIsMissingShouldUseOneByDefault()
     {
         $distributor = $this->createDistributor();
 
@@ -434,7 +406,7 @@ class DistributorTest extends Unit
     /**
      * @return void
      */
-    public function testDistributeWithRoundingErrorShouldMoveCentToNextItem(): void
+    public function testDistributeWithRoundingErrorShouldMoveCentToNextItem()
     {
         $distributor = $this->createDistributor();
         $discountableObjects = $this->createDiscountableObjects([
@@ -470,15 +442,15 @@ class DistributorTest extends Unit
         $unitGrossPrice = $discountableItemTransfer->getOriginalItemCalculatedDiscounts()[0]->getUnitAmount();
         $this->assertSame(33, $unitGrossPrice);
 
-        $this->assertSame(100, $totalAmount);
+        $this->assertEquals(100, $totalAmount);
     }
 
     /**
      * @param array $items
      *
-     * @return \ArrayObject|\Generated\Shared\Transfer\DiscountableItemTransfer[]
+     * @return \ArrayObject
      */
-    protected function createDiscountableObjects(array $items = []): ArrayObject
+    protected function createDiscountableObjects($items = [])
     {
         $discountableObjects = new ArrayObject();
         foreach ($items as $item) {
@@ -497,7 +469,7 @@ class DistributorTest extends Unit
      *
      * @return \Generated\Shared\Transfer\DiscountTransfer
      */
-    protected function createDiscountTransfer(int $discountAmount): DiscountTransfer
+    protected function createDiscountTransfer($discountAmount)
     {
         $discountTransfer = new DiscountTransfer();
         $discountTransfer->setAmount($discountAmount);
@@ -508,7 +480,7 @@ class DistributorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\Distributor\Distributor
      */
-    protected function createDistributor(): Distributor
+    protected function createDistributor()
     {
         return new Distributor(
             $this->createDiscountableItemTransformer(),
@@ -519,7 +491,7 @@ class DistributorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\Distributor\DiscountableItem\DiscountableItemTransformerInterface
      */
-    protected function createDiscountableItemTransformer(): DiscountableItemTransformerInterface
+    protected function createDiscountableItemTransformer()
     {
         return new DiscountableItemTransformer();
     }

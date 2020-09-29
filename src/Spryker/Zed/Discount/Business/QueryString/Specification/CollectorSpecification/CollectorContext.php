@@ -41,7 +41,6 @@ class CollectorContext implements CollectorSpecificationInterface
     public function collect(QuoteTransfer $quoteTransfer)
     {
         $this->setAcceptedDataTypes();
-
         return $this->collectorPlugin->collect($quoteTransfer, $this->clauseTransfer);
     }
 

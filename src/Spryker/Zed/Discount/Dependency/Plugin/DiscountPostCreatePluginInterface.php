@@ -20,7 +20,7 @@ interface DiscountPostCreatePluginInterface
      *
      * @param \Generated\Shared\Transfer\DiscountConfiguratorTransfer $discountConfiguratorTransfer
      *
-     * @return \Generated\Shared\Transfer\DiscountConfiguratorTransfer
+     * @return \Generated\Shared\Transfer\DiscountConfiguratorTransfer $discountConfiguratorTransfer
      */
     public function postCreate(DiscountConfiguratorTransfer $discountConfiguratorTransfer);
 }

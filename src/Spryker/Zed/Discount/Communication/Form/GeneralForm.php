@@ -21,8 +21,6 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
  * @method \Spryker\Zed\Discount\Communication\DiscountCommunicationFactory getFactory()
  * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
- * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
- * @method \Spryker\Zed\Discount\Persistence\DiscountRepositoryInterface getRepository()
  */
 class GeneralForm extends AbstractType
 {
@@ -90,6 +88,7 @@ class GeneralForm extends AbstractType
         $builder->add(static::FIELD_DISCOUNT_TYPE, ChoiceType::class, [
             'label' => 'Discount Type',
             'choices' => array_flip($this->getVoucherChoices()),
+            'choices_as_values' => true,
             'constraints' => [
                 new NotBlank(),
             ],
@@ -162,6 +161,7 @@ class GeneralForm extends AbstractType
                 self::NON_EXCLUSIVE,
                 self::EXCLUSIVE,
             ]),
+            'choices_as_values' => true,
             'constraints' => [
                 new NotBlank(),
             ],

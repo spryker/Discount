@@ -18,13 +18,11 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
  * @method \Spryker\Zed\Discount\Communication\DiscountCommunicationFactory getFactory()
- * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
- * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
  */
 class CurrencyDecisionRulePlugin extends AbstractPlugin implements DecisionRulePluginInterface, DiscountRuleWithValueOptionsPluginInterface
 {
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @api
      *
@@ -39,6 +37,7 @@ class CurrencyDecisionRulePlugin extends AbstractPlugin implements DecisionRuleP
         ItemTransfer $itemTransfer,
         ClauseTransfer $clauseTransfer
     ) {
+
         return $this->getFacade()
             ->isCurrencyDecisionRuleSatisfiedBy(
                 $quoteTransfer,
@@ -48,7 +47,7 @@ class CurrencyDecisionRulePlugin extends AbstractPlugin implements DecisionRuleP
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @api
      *
@@ -60,11 +59,11 @@ class CurrencyDecisionRulePlugin extends AbstractPlugin implements DecisionRuleP
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @api
      *
-     * @return string[]
+     * @return array
      */
     public function acceptedDataTypes()
     {
@@ -74,7 +73,7 @@ class CurrencyDecisionRulePlugin extends AbstractPlugin implements DecisionRuleP
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      *
      * @api
      *

@@ -18,14 +18,10 @@ use Symfony\Component\Validator\Constraints\Type;
 /**
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
  * @method \Spryker\Zed\Discount\Communication\DiscountCommunicationFactory getFactory()
- * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
- * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
  */
 class PercentagePlugin extends AbstractPlugin implements DiscountCalculatorPluginInterface, DiscountCalculatorPluginWithAmountInputTypeInterface
 {
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\DiscountableItemTransfer[] $discountableItems
@@ -39,8 +35,6 @@ class PercentagePlugin extends AbstractPlugin implements DiscountCalculatorPlugi
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param float $value
@@ -53,13 +47,11 @@ class PercentagePlugin extends AbstractPlugin implements DiscountCalculatorPlugi
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $value
      *
-     * @return float
+     * @return int
      */
     public function transformFromPersistence($value)
     {
@@ -67,8 +59,6 @@ class PercentagePlugin extends AbstractPlugin implements DiscountCalculatorPlugi
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $amount
@@ -82,8 +72,6 @@ class PercentagePlugin extends AbstractPlugin implements DiscountCalculatorPlugi
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return array
@@ -104,8 +92,6 @@ class PercentagePlugin extends AbstractPlugin implements DiscountCalculatorPlugi
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return string

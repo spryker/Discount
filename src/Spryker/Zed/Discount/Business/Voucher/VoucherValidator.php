@@ -55,8 +55,7 @@ class VoucherValidator implements VoucherValidatorInterface
             ->findOne();
 
         if (!$discountVoucherEntity) {
-            $this->addErrorMessage(static::REASON_VOUCHER_CODE_NOT_FOUND);
-
+            $this->addErrorMessage(self::REASON_VOUCHER_CODE_NOT_FOUND);
             return false;
         }
 
@@ -71,31 +70,24 @@ class VoucherValidator implements VoucherValidatorInterface
     protected function validateDiscountVoucher(SpyDiscountVoucher $discountVoucherEntity)
     {
         if (!$discountVoucherEntity->getIsActive()) {
-            $this->addErrorMessage(static::REASON_VOUCHER_CODE_NOT_ACTIVE);
-
+            $this->addErrorMessage(self::REASON_VOUCHER_CODE_NOT_ACTIVE);
             return false;
         }
 
         /** @var \Orm\Zed\Discount\Persistence\SpyDiscountVoucherPool|null $voucherPoolEntity */
         $voucherPoolEntity = $discountVoucherEntity->getVoucherPool();
         if (!$voucherPoolEntity) {
-            $this->addErrorMessage(static::REASON_VOUCHER_CODE_POOL_MISSING);
-
+            $this->addErrorMessage(self::REASON_VOUCHER_CODE_POOL_MISSING);
             return false;
         }
 
         if (!$voucherPoolEntity->getIsActive()) {
-            $this->addErrorMessage(static::REASON_VOUCHER_CODE_POOL_NOT_ACTIVE);
-
+            $this->addErrorMessage(self::REASON_VOUCHER_CODE_POOL_NOT_ACTIVE);
             return false;
         }
 
         if (!$this->isValidNumberOfUses($discountVoucherEntity)) {
-            $this->addErrorMessage(
-                static::REASON_VOUCHER_CODE_LIMIT_REACHED,
-                ['%code%' => $discountVoucherEntity->getCode()]
-            );
-
+            $this->addInfoMessage(self::REASON_VOUCHER_CODE_LIMIT_REACHED);
             return false;
         }
 
@@ -116,26 +108,24 @@ class VoucherValidator implements VoucherValidatorInterface
 
     /**
      * @param string $message
-     * @param array $data
      *
      * @return void
      */
-    protected function addErrorMessage(string $message, array $data = []): void
+    protected function addErrorMessage(string $message): void
     {
-        $messageTransfer = $this->createMessageTransfer($message, $data);
+        $messageTransfer = $this->createMessageTransfer($message);
 
         $this->messengerFacade->addErrorMessage($messageTransfer);
     }
 
     /**
      * @param string $message
-     * @param array $data
      *
      * @return void
      */
-    protected function addInfoMessage(string $message, array $data = []): void
+    protected function addInfoMessage(string $message): void
     {
-        $messageTransfer = $this->createMessageTransfer($message, $data);
+        $messageTransfer = $this->createMessageTransfer($message);
 
         $this->messengerFacade->addInfoMessage($messageTransfer);
     }
@@ -146,7 +136,7 @@ class VoucherValidator implements VoucherValidatorInterface
      *
      * @return \Generated\Shared\Transfer\MessageTransfer
      */
-    protected function createMessageTransfer(string $message, array $data): MessageTransfer
+    protected function createMessageTransfer(string $message, array $data = []): MessageTransfer
     {
         $messageTransfer = new MessageTransfer();
         $messageTransfer->setValue($message);
@@ -162,10 +152,8 @@ class VoucherValidator implements VoucherValidatorInterface
      */
     protected function isValidNumberOfUses(SpyDiscountVoucher $discountVoucherEntity)
     {
-        if (
-            $discountVoucherEntity->getMaxNumberOfUses() > 0 &&
-            $discountVoucherEntity->getNumberOfUses() >= $discountVoucherEntity->getMaxNumberOfUses()
-        ) {
+        if ($discountVoucherEntity->getMaxNumberOfUses() > 0 &&
+            $discountVoucherEntity->getNumberOfUses() >= $discountVoucherEntity->getMaxNumberOfUses()) {
             return false;
         }
 

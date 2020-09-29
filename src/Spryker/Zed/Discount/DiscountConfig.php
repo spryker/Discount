@@ -12,7 +12,6 @@ use Spryker\Zed\Kernel\AbstractBundleConfig;
 class DiscountConfig extends AbstractBundleConfig
 {
     public const DEFAULT_VOUCHER_CODE_LENGTH = 6;
-    public const DEFAULT_MINIMUM_ITEM_AMOUNT = 1;
 
     public const KEY_VOUCHER_CODE_CONSONANTS = 'consonants';
     public const KEY_VOUCHER_CODE_VOWELS = 'vowels';
@@ -21,8 +20,6 @@ class DiscountConfig extends AbstractBundleConfig
     protected const REDIRECT_URL_DEFAULT = '/discount/index/list';
 
     /**
-     * @api
-     *
      * @return int
      */
     public function getVoucherCodeLength()
@@ -31,8 +28,6 @@ class DiscountConfig extends AbstractBundleConfig
     }
 
     /**
-     * @api
-     *
      * @return array
      */
     public function getVoucherCodeCharacters()
@@ -51,8 +46,6 @@ class DiscountConfig extends AbstractBundleConfig
     }
 
     /**
-     * @api
-     *
      * @return int
      */
     public function getAllowedCodeCharactersLength()
@@ -67,8 +60,6 @@ class DiscountConfig extends AbstractBundleConfig
     }
 
     /**
-     * @api
-     *
      * @return string
      */
     public function getVoucherPoolTemplateReplacementString()
@@ -77,8 +68,6 @@ class DiscountConfig extends AbstractBundleConfig
     }
 
     /**
-     * @api
-     *
      * @return string
      */
     public function getDefaultRedirectUrl(): string

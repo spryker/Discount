@@ -5,6 +5,7 @@
 
 'use strict';
 
+require('ZedGui');
 var SqlFactory = require('./libs/sql-factory');
 
 require('../../sass/main.scss');

@@ -38,7 +38,7 @@ class DiscountEditPage
      *
      * @return void
      */
-    public function open($identifier): void
+    public function open($identifier)
     {
         $this->tester->amOnPage($this->url($identifier));
     }
@@ -48,7 +48,7 @@ class DiscountEditPage
      *
      * @return string
      */
-    public function url($identifier): string
+    public function url($identifier)
     {
         return static::URL . "?id-discount=$identifier";
     }

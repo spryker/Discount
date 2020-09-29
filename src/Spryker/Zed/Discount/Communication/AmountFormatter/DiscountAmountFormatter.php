@@ -43,7 +43,7 @@ class DiscountAmountFormatter implements DiscountAmountFormatterInterface
 
         $formatterAmount = $this->formatAmount(
             $calculatorPlugin,
-            (int)$discountConfiguratorTransfer->getDiscountCalculator()->getAmount()
+            $discountConfiguratorTransfer->getDiscountCalculator()->getAmount()
         );
 
         $discountConfiguratorTransfer->getDiscountCalculator()->setAmount($formatterAmount);
@@ -83,7 +83,6 @@ class DiscountAmountFormatter implements DiscountAmountFormatterInterface
             );
             $moneyValueTransfer->setGrossAmount($formattedGrossAmount);
 
-            /** @var int|null $formattedNetAmount */
             $formattedNetAmount = $this->formatAmount(
                 $calculatorPlugin,
                 $moneyValueTransfer->getNetAmount(),
@@ -91,7 +90,6 @@ class DiscountAmountFormatter implements DiscountAmountFormatterInterface
             );
             $moneyValueTransfer->setNetAmount($formattedNetAmount);
         }
-
         return $discountConfiguratorTransfer;
     }
 }

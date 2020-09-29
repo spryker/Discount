@@ -39,6 +39,7 @@ class ItemQuantityDecisionRule implements DecisionRuleInterface
         ItemTransfer $currentItemTransfer,
         ClauseTransfer $clauseTransfer
     ) {
+
         return $this->comparators->compare($clauseTransfer, $currentItemTransfer->getQuantity());
     }
 }

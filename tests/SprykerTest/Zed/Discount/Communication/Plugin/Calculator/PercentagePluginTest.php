@@ -12,7 +12,6 @@ use Spryker\Zed\Discount\Communication\Plugin\Calculator\PercentagePlugin;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -27,7 +26,7 @@ class PercentagePluginTest extends Unit
     /**
      * @return void
      */
-    public function testTransformForPersistence(): void
+    public function testTransformForPersistence()
     {
         $plugin = new PercentagePlugin();
 
@@ -38,7 +37,7 @@ class PercentagePluginTest extends Unit
     /**
      * @return void
      */
-    public function testTransformFromPersistence(): void
+    public function testTransformFromPersistence()
     {
         $plugin = new PercentagePlugin();
 

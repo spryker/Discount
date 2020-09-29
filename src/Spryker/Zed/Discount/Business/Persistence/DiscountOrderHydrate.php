@@ -43,20 +43,14 @@ class DiscountOrderHydrate implements DiscountOrderHydrateInterface
         foreach ($salesOrderDiscounts as $salesOrderDiscountEntity) {
             $calculatedDiscountTransfer = $this->hydrateCalculatedDiscountTransfer($salesOrderDiscountEntity);
 
-            $this->addCalculatedDiscount($orderTransfer, $salesOrderDiscountEntity, clone $calculatedDiscountTransfer);
+            $this->addCalculatedDiscount($orderTransfer, $salesOrderDiscountEntity, $calculatedDiscountTransfer);
 
-            if (isset($groupedDiscounts[$salesOrderDiscountEntity->getDisplayName()])) {
-                $existingDiscountTransfer = $groupedDiscounts[$salesOrderDiscountEntity->getDisplayName()];
-
-                $calculatedDiscountTransfer->setQuantity(
-                    $calculatedDiscountTransfer->getQuantity() + $existingDiscountTransfer->getQuantity()
-                );
-
-                $calculatedDiscountTransfer->setSumAmount(
-                    $calculatedDiscountTransfer->getSumAmount() + $existingDiscountTransfer->getSumAmount()
-                );
+            if (!isset($groupedDiscounts[$salesOrderDiscountEntity->getDisplayName()])) {
+                $groupedDiscounts[$salesOrderDiscountEntity->getDisplayName()] = $calculatedDiscountTransfer;
             }
-            $calculatedDiscountTransfer->setUnitAmount(null);
+
+            $calculatedDiscountTransfer = $groupedDiscounts[$salesOrderDiscountEntity->getDisplayName()];
+
             $groupedDiscounts[$salesOrderDiscountEntity->getDisplayName()] = $calculatedDiscountTransfer;
         }
 
@@ -96,19 +90,16 @@ class DiscountOrderHydrate implements DiscountOrderHydrateInterface
 
         if ($salesOrderDiscountEntity->getFkSalesExpense()) {
             $this->addCalculatedDiscountToExpense($orderTransfer, $calculatedDiscountTransfer, $salesOrderDiscountEntity->getFkSalesExpense());
-
             return;
         }
 
         if ($salesOrderDiscountEntity->getFkSalesOrderItemOption()) {
             $this->addCalculatedDiscountToItemProductOption($orderTransfer, $calculatedDiscountTransfer, $salesOrderDiscountEntity->getFkSalesOrderItemOption());
-
             return;
         }
 
         if ($salesOrderDiscountEntity->getFkSalesOrderItem()) {
             $this->addCalculatedDiscountToItem($orderTransfer, $calculatedDiscountTransfer, $salesOrderDiscountEntity->getFkSalesOrderItem());
-
             return;
         }
     }
@@ -206,10 +197,8 @@ class DiscountOrderHydrate implements DiscountOrderHydrateInterface
      *
      * @return void
      */
-    protected function deriveCalculatedDiscountUnitAmounts(
-        CalculatedDiscountTransfer $calculatedDiscountTransfer,
-        SpySalesDiscount $salesOrderDiscountEntity
-    ): void {
+    protected function deriveCalculatedDiscountUnitAmounts(CalculatedDiscountTransfer $calculatedDiscountTransfer, SpySalesDiscount $salesOrderDiscountEntity): void
+    {
         $quantity = $this->getCalculatedDiscountQuantity($salesOrderDiscountEntity);
 
         $calculatedDiscountTransfer->setUnitAmount((int)round($salesOrderDiscountEntity->getAmount() / $quantity));

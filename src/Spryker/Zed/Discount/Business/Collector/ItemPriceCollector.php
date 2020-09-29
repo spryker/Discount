@@ -44,13 +44,11 @@ class ItemPriceCollector extends BaseCollector implements CollectorInterface
      */
     public function collect(QuoteTransfer $quoteTransfer, ClauseTransfer $clauseTransfer)
     {
-        $clonedClauseTransfer = clone $clauseTransfer;
-
-        $this->currencyConverter->convertDecimalToCent($clonedClauseTransfer);
+        $this->currencyConverter->convertDecimalToCent($clauseTransfer);
 
         $discountableItems = [];
         foreach ($quoteTransfer->getItems() as $itemTransfer) {
-            if ($this->comparators->compare($clonedClauseTransfer, $itemTransfer->getUnitPrice()) === false) {
+            if ($this->comparators->compare($clauseTransfer, $itemTransfer->getUnitPrice()) === false) {
                 continue;
             }
 

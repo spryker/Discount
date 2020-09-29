@@ -15,7 +15,6 @@ use Spryker\Zed\Discount\Communication\Form\DataProvider\CalculatorFormDataProvi
 use Spryker\Zed\Discount\Communication\Form\DataProvider\DiscountFormDataProvider;
 use Spryker\Zed\Discount\Communication\Form\DataProvider\VoucherFormDataProvider;
 use Spryker\Zed\Discount\Communication\Form\DiscountForm;
-use Spryker\Zed\Discount\Communication\Form\DiscountVisibilityForm;
 use Spryker\Zed\Discount\Communication\Form\Transformer\CalculatorAmountTransformer;
 use Spryker\Zed\Discount\Communication\Form\VoucherForm;
 use Spryker\Zed\Discount\Communication\QueryBuilderTransformer\JavascriptQueryBuilderTransformer;
@@ -32,7 +31,6 @@ use Symfony\Component\Form\FormInterface;
  * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
  * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
- * @method \Spryker\Zed\Discount\Persistence\DiscountRepositoryInterface getRepository()
  */
 class DiscountCommunicationFactory extends AbstractCommunicationFactory
 {
@@ -187,14 +185,6 @@ class DiscountCommunicationFactory extends AbstractCommunicationFactory
     public function createPriceCollectionType()
     {
         return new MoneyCollectionType();
-    }
-
-    /**
-     * @return \Symfony\Component\Form\FormInterface
-     */
-    public function createDiscountVisibilityForm(): FormInterface
-    {
-        return $this->getFormFactory()->create(DiscountVisibilityForm::class);
     }
 
     /**

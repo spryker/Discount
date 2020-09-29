@@ -18,7 +18,6 @@ use Spryker\Zed\Discount\Business\QueryString\Validator;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -32,7 +31,7 @@ class ValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateDecisionRuleWhenThereIsNoErrorShouldNotThrowException(): void
+    public function testValidateDecisionRuleWhenThereIsNoErrorShouldNotThrowException()
     {
         $decisionRuleMock = $this->createSpecificationBuilderMock();
         $decisionRuleMock
@@ -49,7 +48,7 @@ class ValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateCollectorWhenThereIsNoErrorShouldNotThrowException(): void
+    public function testValidateCollectorWhenThereIsNoErrorShouldNotThrowException()
     {
         $collectorBuilderMock = $this->createSpecificationBuilderMock();
         $collectorBuilderMock
@@ -66,7 +65,7 @@ class ValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateDecisionRuleShouldCaptureExceptionsThrownIntoResponseArray(): void
+    public function testValidateDecisionRuleShouldCaptureExceptionsThrownIntoResponseArray()
     {
         $queryStringException = 'Test';
 
@@ -83,13 +82,13 @@ class ValidatorTest extends Unit
         $messages = $validator->validateByType(MetaProviderFactory::TYPE_DECISION_RULE, 'query string');
 
         $this->assertCount(1, $messages);
-        $this->assertSame($queryStringException, $messages[0]);
+        $this->assertEquals($queryStringException, $messages[0]);
     }
 
     /**
      * @return void
      */
-    public function testValidateCollectorShouldCaptureExceptionsThrownIntoResponseArray(): void
+    public function testValidateCollectorShouldCaptureExceptionsThrownIntoResponseArray()
     {
         $queryStringException = 'Test';
 
@@ -106,13 +105,13 @@ class ValidatorTest extends Unit
         $messages = $validator->validateByType(MetaProviderFactory::TYPE_COLLECTOR, 'query string');
 
         $this->assertCount(1, $messages);
-        $this->assertSame($queryStringException, $messages[0]);
+        $this->assertEquals($queryStringException, $messages[0]);
     }
 
     /**
      * @return void
      */
-    public function testValidateCollectorWhenComparatorExceptionThrownShouldStoreIntoResponseArray(): void
+    public function testValidateCollectorWhenComparatorExceptionThrownShouldStoreIntoResponseArray()
     {
         $queryStringException = 'Test';
 
@@ -129,13 +128,13 @@ class ValidatorTest extends Unit
         $messages = $validator->validateByType(MetaProviderFactory::TYPE_COLLECTOR, 'query string');
 
         $this->assertCount(1, $messages);
-        $this->assertSame($queryStringException, $messages[0]);
+        $this->assertEquals($queryStringException, $messages[0]);
     }
 
     /**
      * @return void
      */
-    public function testValidateCollectorShouldThrowExceptionWhenNonExistingTypeUsed(): void
+    public function testValidateCollectorShouldThrowExceptionWhenNonExistingTypeUsed()
     {
         $this->expectException(QueryBuilderException::class);
 
@@ -153,7 +152,8 @@ class ValidatorTest extends Unit
     protected function createValidator(
         ?SpecificationBuilder $decisionRuleMock = null,
         ?SpecificationBuilder $collectorMock = null
-    ): Validator {
+    ) {
+
         if ($decisionRuleMock === null) {
             $decisionRuleMock = $this->createSpecificationBuilderMock();
         }
@@ -169,9 +169,9 @@ class ValidatorTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\SpecificationBuilder
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\SpecificationBuilder
      */
-    protected function createSpecificationBuilderMock(): SpecificationBuilder
+    protected function createSpecificationBuilderMock()
     {
         return $this->getMockBuilder(SpecificationBuilder::class)
             ->disableOriginalConstructor()
@@ -179,9 +179,9 @@ class ValidatorTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\DecisionRuleSpecification\DecisionRuleSpecificationInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\DecisionRuleSpecification\DecisionRuleSpecificationInterface
      */
-    protected function createDecisionRuleSpecificationMock(): DecisionRuleSpecificationInterface
+    protected function createDecisionRuleSpecificationMock()
     {
         return $this->getMockBuilder(DecisionRuleSpecificationInterface::class)->getMock();
     }

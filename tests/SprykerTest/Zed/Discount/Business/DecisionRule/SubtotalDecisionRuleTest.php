@@ -15,7 +15,6 @@ use SprykerTest\Zed\Discount\Business\BaseRuleTester;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class SubtotalDecisionRuleTest extends BaseRuleTester
     /**
      * @return void
      */
-    public function testWhenSubTotalMatchesClauseShouldReturnTrue(): void
+    public function testWhenSubTotalMatchesClauseShouldReturnTrue()
     {
         $comparatorMock = $this->createComparatorMock();
         $comparatorMock->method('compare')->willReturnCallback(function (ClauseTransfer $clauseTransfer, $grandTotal) {
@@ -55,7 +54,7 @@ class SubtotalDecisionRuleTest extends BaseRuleTester
     /**
      * @return void
      */
-    public function testWhenSubTotalsNotSetShouldReturnFalse(): void
+    public function testWhenSubTotalsNotSetShouldReturnFalse()
     {
         $subtotalDecisionRule = $this->createSubtotalDecisionRule();
 
@@ -73,7 +72,7 @@ class SubtotalDecisionRuleTest extends BaseRuleTester
      *
      * @return \Spryker\Zed\Discount\Business\DecisionRule\SubTotalDecisionRule
      */
-    protected function createSubtotalDecisionRule(?ComparatorOperatorsInterface $comparatorMock = null): SubTotalDecisionRule
+    protected function createSubtotalDecisionRule(?ComparatorOperatorsInterface $comparatorMock = null)
     {
         if ($comparatorMock === null) {
             $comparatorMock = $this->createComparatorMock();

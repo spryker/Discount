@@ -17,14 +17,10 @@ use Symfony\Component\Validator\Constraints\Type;
 /**
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
  * @method \Spryker\Zed\Discount\Communication\DiscountCommunicationFactory getFactory()
- * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
- * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
  */
 class FixedPlugin extends AbstractPlugin implements DiscountCalculatorPluginInterface, DiscountCalculatorPluginWithAmountInputTypeInterface
 {
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\DiscountableItemTransfer[] $discountableItems
@@ -48,8 +44,6 @@ class FixedPlugin extends AbstractPlugin implements DiscountCalculatorPluginInte
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param float $value
@@ -62,8 +56,6 @@ class FixedPlugin extends AbstractPlugin implements DiscountCalculatorPluginInte
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $value
@@ -76,8 +68,6 @@ class FixedPlugin extends AbstractPlugin implements DiscountCalculatorPluginInte
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param int $amount
@@ -93,8 +83,6 @@ class FixedPlugin extends AbstractPlugin implements DiscountCalculatorPluginInte
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return array
@@ -110,8 +98,6 @@ class FixedPlugin extends AbstractPlugin implements DiscountCalculatorPluginInte
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @return string

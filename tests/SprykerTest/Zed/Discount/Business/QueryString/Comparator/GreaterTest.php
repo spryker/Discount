@@ -14,7 +14,6 @@ use Spryker\Zed\Discount\Business\QueryString\Comparator\Greater;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class GreaterTest extends Unit
     /**
      * @return void
      */
-    public function testAcceptShouldReturnTrueWhenMoreExpressionProvided(): void
+    public function testAcceptShouldReturnTrueWhenMoreExpressionProvided()
     {
         $more = $this->createMore();
 
@@ -44,7 +43,7 @@ class GreaterTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenClauseValueIsBiggerThanProvidedShouldReturnTrue(): void
+    public function testCompareWhenClauseValueIsBiggerThanProvidedShouldReturnTrue()
     {
         $more = $this->createMore();
 
@@ -59,7 +58,7 @@ class GreaterTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenClauseValueIsSmallerThanProvidedShouldReturnFalse(): void
+    public function testCompareWhenClauseValueIsSmallerThanProvidedShouldReturnFalse()
     {
         $more = $this->createMore();
 
@@ -74,7 +73,7 @@ class GreaterTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenNonNumericValueUsedShouldThrowException(): void
+    public function testCompareWhenNonNumericValueUsedShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -88,7 +87,7 @@ class GreaterTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Comparator\Greater
      */
-    protected function createMore(): Greater
+    protected function createMore()
     {
         return new Greater();
     }

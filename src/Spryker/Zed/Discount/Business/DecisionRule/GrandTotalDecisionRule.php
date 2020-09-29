@@ -54,10 +54,8 @@ class GrandTotalDecisionRule implements DecisionRuleInterface
             return false;
         }
 
-        $clonedClauseTransfer = clone $clauseTransfer;
+        $this->moneyValueConverter->convertDecimalToCent($clauseTransfer);
 
-        $this->moneyValueConverter->convertDecimalToCent($clonedClauseTransfer);
-
-        return $this->comparators->compare($clonedClauseTransfer, $quoteTransfer->getTotals()->getGrandTotal());
+        return $this->comparators->compare($clauseTransfer, $quoteTransfer->getTotals()->getGrandTotal());
     }
 }

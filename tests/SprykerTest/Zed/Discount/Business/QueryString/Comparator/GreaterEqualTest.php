@@ -14,7 +14,6 @@ use Spryker\Zed\Discount\Business\QueryString\Comparator\GreaterEqual;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class GreaterEqualTest extends Unit
     /**
      * @return void
      */
-    public function testAcceptShouldReturnTrueWhenMoreEqualExpressionProvided(): void
+    public function testAcceptShouldReturnTrueWhenMoreEqualExpressionProvided()
     {
         $moreEqual = $this->createMoreEqual();
 
@@ -44,7 +43,7 @@ class GreaterEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenClauseValueIsBiggerThanProvidedShouldReturnTrue(): void
+    public function testCompareWhenClauseValueIsBiggerThanProvidedShouldReturnTrue()
     {
         $moreEqual = $this->createMoreEqual();
 
@@ -59,7 +58,7 @@ class GreaterEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenClauseValueIsSmallerThanProvidedShouldReturnFalse(): void
+    public function testCompareWhenClauseValueIsSmallerThanProvidedShouldReturnFalse()
     {
         $moreEqual = $this->createMoreEqual();
 
@@ -74,7 +73,7 @@ class GreaterEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenClauseValueIsEqualShouldReturnTrue(): void
+    public function testCompareWhenClauseValueIsEqualShouldReturnTrue()
     {
         $moreEqual = $this->createMoreEqual();
 
@@ -89,7 +88,7 @@ class GreaterEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenNonNumericValueUsedShouldThrowException(): void
+    public function testCompareWhenNonNumericValueUsedShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -103,7 +102,7 @@ class GreaterEqualTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Comparator\GreaterEqual
      */
-    protected function createMoreEqual(): GreaterEqual
+    protected function createMoreEqual()
     {
         return new GreaterEqual();
     }

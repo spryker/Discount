@@ -19,7 +19,6 @@ use Spryker\Zed\Discount\Dependency\Plugin\CollectorPluginInterface;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -34,7 +33,7 @@ class CollectorProviderTest extends Unit
     /**
      * @return void
      */
-    public function testCreateAndShouldReturnInstanceOfAndCompositeSpecification(): void
+    public function testCreateAndShouldReturnInstanceOfAndCompositeSpecification()
     {
         $collectorProvider = $this->createCollectorProvider();
         $compositeSpecification = $collectorProvider->createAnd(
@@ -48,7 +47,7 @@ class CollectorProviderTest extends Unit
     /**
      * @return void
      */
-    public function testCreateOrShouldReturnInstanceOfOrCompositeSpecification(): void
+    public function testCreateOrShouldReturnInstanceOfOrCompositeSpecification()
     {
         $collectorProvider = $this->createCollectorProvider();
         $compositeSpecification = $collectorProvider->createOr(
@@ -62,7 +61,7 @@ class CollectorProviderTest extends Unit
     /**
      * @return void
      */
-    public function testGetSpecificationContextShouldReturnContextWithClauseAndPlugin(): void
+    public function testGetSpecificationContextShouldReturnContextWithClauseAndPlugin()
     {
         $decisionRulePluginMock = $this->createCollectorPluginMock();
         $decisionRulePluginMock
@@ -82,7 +81,7 @@ class CollectorProviderTest extends Unit
     /**
      * @return void
      */
-    public function testGetSpecificationContextShouldThrowExceptionWhenSpecificationNotFound(): void
+    public function testGetSpecificationContextShouldThrowExceptionWhenSpecificationNotFound()
     {
         $this->expectException(QueryStringException::class);
 
@@ -104,7 +103,7 @@ class CollectorProviderTest extends Unit
      *
      * @return \Spryker\Zed\Discount\Business\QueryString\Specification\CollectorProvider
      */
-    protected function createCollectorProvider(?CollectorPluginInterface $collectorPluginMock = null): CollectorProvider
+    protected function createCollectorProvider(?CollectorPluginInterface $collectorPluginMock = null)
     {
         if ($collectorPluginMock === null) {
             $collectorPluginMock = $this->createCollectorPluginMock();
@@ -114,17 +113,17 @@ class CollectorProviderTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Dependency\Plugin\CollectorPluginInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Dependency\Plugin\CollectorPluginInterface
      */
-    protected function createCollectorPluginMock(): CollectorPluginInterface
+    protected function createCollectorPluginMock()
     {
         return $this->getMockBuilder(CollectorPluginInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\CollectorSpecification\CollectorSpecificationInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\CollectorSpecification\CollectorSpecificationInterface
      */
-    protected function createCollectorSpecificationMock(): CollectorSpecificationInterface
+    protected function createCollectorSpecificationMock()
     {
         return $this->getMockBuilder(CollectorSpecificationInterface::class)->getMock();
     }

@@ -17,7 +17,6 @@ use Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -31,7 +30,7 @@ class VoucherValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateWhenCodeIsNotActiveShouldReturnFalse(): void
+    public function testValidateWhenCodeIsNotActiveShouldReturnFalse()
     {
         $discountVoucherEntityMock = $this->createDiscountVoucherEntityMock();
         $discountVoucherEntityMock->method('getIsActive')
@@ -48,7 +47,7 @@ class VoucherValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateWhenPoolIsNotSetShouldReturnFalse(): void
+    public function testValidateWhenPoolIsNotSetShouldReturnFalse()
     {
         $discountVoucherEntityMock = $this->createDiscountVoucherEntityMock();
 
@@ -69,7 +68,7 @@ class VoucherValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateWhenPoolIsNotActiveShouldReturnFalse(): void
+    public function testValidateWhenPoolIsNotActiveShouldReturnFalse()
     {
         $discountVoucherEntityMock = $this->createDiscountVoucherEntityMock();
 
@@ -93,7 +92,7 @@ class VoucherValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateWhenVoucherNumberOfUsesIsInvalidShouldReturnFalse(): void
+    public function testValidateWhenVoucherNumberOfUsesIsInvalidShouldReturnFalse()
     {
         $discountVoucherEntityMock = $this->createDiscountVoucherEntityMock();
 
@@ -124,7 +123,7 @@ class VoucherValidatorTest extends Unit
     /**
      * @return void
      */
-    public function testValidateWhenVoucherIsValidShouldReturnTrue(): void
+    public function testValidateWhenVoucherIsValidShouldReturnTrue()
     {
         $discountVoucherEntityMock = $this->createDiscountVoucherEntityMock();
 
@@ -161,7 +160,8 @@ class VoucherValidatorTest extends Unit
     protected function createVoucherValidator(
         ?DiscountQueryContainerInterface $discountQueryContainerMock = null,
         ?DiscountToMessengerInterface $messengerFacadeMock = null
-    ): VoucherValidator {
+    ) {
+
         if ($discountQueryContainerMock == null) {
             $discountQueryContainerMock = $this->createDiscountQueryContainerMock();
         }
@@ -174,33 +174,33 @@ class VoucherValidatorTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface
      */
-    protected function createDiscountQueryContainerMock(): DiscountQueryContainerInterface
+    protected function createDiscountQueryContainerMock()
     {
         return $this->getMockBuilder(DiscountQueryContainerInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Dependency\Facade\DiscountToMessengerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Dependency\Facade\DiscountToMessengerInterface
      */
-    protected function createMessengerFacadeMock(): DiscountToMessengerInterface
+    protected function createMessengerFacadeMock()
     {
         return $this->getMockBuilder(DiscountToMessengerInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountVoucher
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountVoucher
      */
-    protected function createDiscountVoucherEntityMock(): SpyDiscountVoucher
+    protected function createDiscountVoucherEntityMock()
     {
         return $this->getMockBuilder(SpyDiscountVoucher::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountVoucherQuery
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountVoucherQuery
      */
-    protected function createDiscountVoucherQueryMock(): SpyDiscountVoucherQuery
+    protected function createDiscountVoucherQueryMock()
     {
         return $this->getMockBuilder(SpyDiscountVoucherQuery::class)->getMock();
     }
@@ -208,9 +208,9 @@ class VoucherValidatorTest extends Unit
     /**
      * @param \Orm\Zed\Discount\Persistence\SpyDiscountVoucher $discountVoucherEntity
      *
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface
      */
-    protected function configureDiscountQueryContainerMock(SpyDiscountVoucher $discountVoucherEntity): DiscountQueryContainerInterface
+    protected function configureDiscountQueryContainerMock(SpyDiscountVoucher $discountVoucherEntity)
     {
         $discountQueryContainerMock = $this->createDiscountQueryContainerMock();
 
@@ -227,7 +227,7 @@ class VoucherValidatorTest extends Unit
     /**
      * @return \Orm\Zed\Discount\Persistence\SpyDiscountVoucherPool
      */
-    protected function createVoucherPoolEntity(): SpyDiscountVoucherPool
+    protected function createVoucherPoolEntity()
     {
         return new SpyDiscountVoucherPool();
     }

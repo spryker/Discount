@@ -43,7 +43,6 @@ class DecisionRuleContext implements DecisionRuleSpecificationInterface
     public function isSatisfiedBy(QuoteTransfer $quoteTransfer, ItemTransfer $itemTransfer)
     {
         $this->setAcceptedDataTypes();
-
         return $this->rulePlugin->isSatisfiedBy($quoteTransfer, $itemTransfer, $this->clauseTransfer);
     }
 

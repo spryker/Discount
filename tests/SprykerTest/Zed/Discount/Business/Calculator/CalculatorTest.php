@@ -8,14 +8,12 @@
 namespace SprykerTest\Zed\Discount\Business\Calculator;
 
 use Codeception\Test\Unit;
-use Generated\Shared\Transfer\CollectedDiscountTransfer;
 use Generated\Shared\Transfer\DiscountableItemTransfer;
 use Generated\Shared\Transfer\DiscountTransfer;
 use Generated\Shared\Transfer\ItemTransfer;
 use Generated\Shared\Transfer\QuoteTransfer;
 use Spryker\Zed\Discount\Business\Calculator\Calculator;
 use Spryker\Zed\Discount\Business\Distributor\DiscountableItem\DiscountableItemTransformer;
-use Spryker\Zed\Discount\Business\Distributor\DiscountableItem\DiscountableItemTransformerInterface;
 use Spryker\Zed\Discount\Business\Distributor\Distributor;
 use Spryker\Zed\Discount\Business\Distributor\DistributorInterface;
 use Spryker\Zed\Discount\Business\Exception\CalculatorException;
@@ -39,11 +37,9 @@ use Spryker\Zed\Discount\Dependency\Plugin\DiscountAmountCalculatorPluginInterfa
 use Spryker\Zed\Discount\Dependency\Plugin\DiscountCalculatorPluginInterface;
 use Spryker\Zed\Discount\DiscountDependencyProvider;
 use Spryker\Zed\Messenger\Business\MessengerFacade;
-use SprykerTest\Zed\Discount\Communication\Fixtures\VoucherCollectedDiscountGroupingStrategyPlugin;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -59,7 +55,7 @@ class CalculatorTest extends Unit
     /**
      * @return void
      */
-    public function testCalculationWithoutAnyDiscountShouldReturnEmptyData(): void
+    public function testCalculationWithoutAnyDiscountShouldReturnEmptyData()
     {
         $calculator = $this->getCalculator();
 
@@ -67,13 +63,13 @@ class CalculatorTest extends Unit
 
         $result = $calculator->calculate([], $quoteTransfer);
 
-        $this->assertSame(0, count($result));
+        $this->assertEquals(0, count($result));
     }
 
     /**
      * @return void
      */
-    public function testCalculateShouldExecuteCollectorWhenThereIsDiscounts(): void
+    public function testCalculateShouldExecuteCollectorWhenThereIsDiscounts()
     {
         $discountTransfer = $this->createDiscountTransfer(100);
         $quoteTransfer = $this->createQuoteTransfer();
@@ -100,10 +96,10 @@ class CalculatorTest extends Unit
     /**
      * @return void
      */
-    public function testOneDiscountShouldNotBeFilteredOut(): void
+    public function testOneDiscountShouldNotBeFilteredOut()
     {
         $discountCollection = [];
-        $discountCollection[] = $this->initializeDiscount(
+        $discountCollection[] = $discount = $this->initializeDiscount(
             'name 1',
             DiscountDependencyProvider::PLUGIN_CALCULATOR_PERCENTAGE,
             50,
@@ -120,7 +116,7 @@ class CalculatorTest extends Unit
             $quoteTransfer
         );
 
-        $this->assertSame(1, count($result));
+        $this->assertEquals(1, count($result));
     }
 
     /**
@@ -133,12 +129,12 @@ class CalculatorTest extends Unit
      * @return \Generated\Shared\Transfer\DiscountTransfer
      */
     protected function initializeDiscount(
-        string $displayName,
-        string $calculatorPlugin,
-        int $amount,
-        bool $isActive,
-        bool $isExclusive = true
-    ): DiscountTransfer {
+        $displayName,
+        $calculatorPlugin,
+        $amount,
+        $isActive,
+        $isExclusive = true
+    ) {
         $discountTransfer = new DiscountTransfer();
         $discountTransfer->setDisplayName($displayName);
         $discountTransfer->setAmount($amount);
@@ -153,7 +149,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    protected function getQuoteTransferWithTwoItems(): QuoteTransfer
+    protected function getQuoteTransferWithTwoItems()
     {
         $quoteTransfer = new QuoteTransfer();
 
@@ -169,7 +165,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\Calculator\Calculator
      */
-    protected function getCalculator(): Calculator
+    protected function getCalculator()
     {
         $calculatorPlugins = $this->createCalculatorPlugins();
 
@@ -181,15 +177,14 @@ class CalculatorTest extends Unit
             $collectorBuilder,
             $messengerFacade,
             $distributor,
-            $calculatorPlugins,
-            []
+            $calculatorPlugins
         );
     }
 
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\SpecificationBuilder
      */
-    protected function createCollectorBuilder(): SpecificationBuilder
+    protected function createCollectorBuilder()
     {
         return new SpecificationBuilder(
             $this->createTokenizer(),
@@ -203,17 +198,16 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\ComparatorOperators
      */
-    protected function createComparatorOperators(): ComparatorOperators
+    protected function createComparatorOperators()
     {
         $operators = (new OperatorProvider())->createComparators();
-
         return new ComparatorOperators($operators);
     }
 
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\ClauseValidator
      */
-    protected function createClauseValidator(): ClauseValidator
+    protected function createClauseValidator()
     {
         return new ClauseValidator(
             $this->createComparatorOperators(),
@@ -224,7 +218,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Specification\MetaData\MetaDataProvider
      */
-    protected function createMetaDataProvider(): MetaDataProvider
+    protected function createMetaDataProvider()
     {
         return new MetaDataProvider(
             $this->createDecisionRulePlugins(),
@@ -236,7 +230,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Dependency\Plugin\DecisionRulePluginInterface[]
      */
-    protected function createDecisionRulePlugins(): array
+    protected function createDecisionRulePlugins()
     {
         return [
             new SkuDecisionRulePlugin(),
@@ -246,7 +240,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Specification\CollectorProvider
      */
-    protected function createCollectorSpecificationProvider(): CollectorProvider
+    protected function createCollectorSpecificationProvider()
     {
         $collectorPlugins = $this->createCollectorPlugins();
 
@@ -256,7 +250,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Dependency\Plugin\CollectorPluginInterface[]
      */
-    protected function createCollectorPlugins(): array
+    protected function createCollectorPlugins()
     {
         $collectorProviderPlugins = [];
 
@@ -268,7 +262,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\Distributor\Distributor
      */
-    protected function createDistributor(): Distributor
+    protected function createDistributor()
     {
         return new Distributor(
             $this->createDiscountableItemTransformer(),
@@ -279,7 +273,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\Distributor\DiscountableItem\DiscountableItemTransformerInterface
      */
-    protected function createDiscountableItemTransformer(): DiscountableItemTransformerInterface
+    protected function createDiscountableItemTransformer()
     {
         return new DiscountableItemTransformer();
     }
@@ -295,7 +289,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Messenger\Business\MessengerFacade
      */
-    protected function createMessengerFacade(): MessengerFacade
+    protected function createMessengerFacade()
     {
         return new MessengerFacade();
     }
@@ -303,7 +297,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Communication\Plugin\Calculator\PercentagePlugin
      */
-    protected function createPercentageCalculator(): PercentagePlugin
+    protected function createPercentageCalculator()
     {
         return new PercentagePlugin();
     }
@@ -311,7 +305,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Dependency\Facade\DiscountToMessengerBridge
      */
-    protected function createDiscountToMessengerBridge(): DiscountToMessengerBridge
+    protected function createDiscountToMessengerBridge()
     {
         return new DiscountToMessengerBridge($this->createMessengerFacade());
     }
@@ -321,7 +315,7 @@ class CalculatorTest extends Unit
      *
      * @return array
      */
-    protected function createCalculatorPlugins($calculatorPluginMock = null): array
+    protected function createCalculatorPlugins($calculatorPluginMock = null)
     {
         $calculatorPlugins = [];
 
@@ -337,19 +331,9 @@ class CalculatorTest extends Unit
     }
 
     /**
-     * @return \Spryker\Zed\DiscountExtension\Dependency\Plugin\CollectedDiscountGroupingStrategyPluginInterface[]
-     */
-    protected function getCollectedDiscountGroupingPlugins(): array
-    {
-        return [
-            new VoucherCollectedDiscountGroupingStrategyPlugin(),
-        ];
-    }
-
-    /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Tokenizer
      */
-    protected function createTokenizer(): Tokenizer
+    protected function createTokenizer()
     {
         return new Tokenizer();
     }
@@ -357,7 +341,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\LogicalComparators
      */
-    protected function createLogicalOperators(): LogicalComparators
+    protected function createLogicalOperators()
     {
         return new LogicalComparators();
     }
@@ -365,7 +349,7 @@ class CalculatorTest extends Unit
     /**
      * @return void
      */
-    public function testCalculateShouldExecuteCollectorWhenThereIsDiscountsFoo(): void
+    public function testCalculateShouldExecuteCollectorWhenThereIsDiscountsFoo()
     {
         $discountTransfer = $this->createDiscountTransfer(100);
         $quoteTransfer = $this->createQuoteTransfer();
@@ -392,9 +376,8 @@ class CalculatorTest extends Unit
     /**
      * @return void
      */
-    public function testCalculateShouldTakeHighestAmountExclusiveDiscountWhenThereIsMoreThanOne(): void
+    public function testCalculateShouldTakeHighestAmountExclusiveDiscountWhenThereIsMoreThanOne()
     {
-        $discounts = [];
         $discounts[] = $this->createDiscountTransfer(70)->setIsExclusive(false);
         $discounts[] = $this->createDiscountTransfer(30)->setIsExclusive(true);
         $discounts[] = $this->createDiscountTransfer(20)->setIsExclusive(true);
@@ -424,14 +407,12 @@ class CalculatorTest extends Unit
     /**
      * @return void
      */
-    public function testCalculateShouldTakeHighestExclusiveWithinGroup(): void
+    public function testCalculateShouldTakeHighestExclusiveWithPromotions()
     {
-        $discounts = [];
         $discounts[] = $this->createDiscountTransfer(70)->setIsExclusive(false);
-        $discounts[] = $this->createDiscountTransfer(30)->setIsExclusive(true)->setVoucherCode('aktion30');
+        $discounts[] = $this->createDiscountTransfer(30)->setIsExclusive(true);
         $discounts[] = $this->createDiscountTransfer(20)->setIsExclusive(true);
-        $discounts[] = $this->createDiscountTransfer(25)->setVoucherCode('aktion');
-        $discounts[] = $this->createDiscountTransfer(10)->setVoucherCode('aktion10');
+        $discounts[] = $this->createDiscountTransfer(25)->setCollectorQueryString('');
 
         $quoteTransfer = $this->createQuoteTransfer();
 
@@ -439,11 +420,11 @@ class CalculatorTest extends Unit
 
         $specificationBuilderMock = $this->createSpecificationBuilderMock();
         $collectorSpecificationMock = $this->collectorSpecificationMock();
-        $collectorSpecificationMock->expects($this->exactly(5))
+        $collectorSpecificationMock->expects($this->exactly(4))
             ->method('collect')
             ->willReturn($discountableItems);
 
-        $specificationBuilderMock->expects($this->exactly(5))
+        $specificationBuilderMock->expects($this->exactly(4))
             ->method('buildFromQueryString')
             ->willReturn($collectorSpecificationMock);
 
@@ -452,20 +433,17 @@ class CalculatorTest extends Unit
         $collectedDiscounts = $calculator->calculate($discounts, $quoteTransfer);
 
         $this->assertCount(2, $collectedDiscounts);
-        $discountAmounts = array_map(function (CollectedDiscountTransfer $collectedDiscountTransfer) {
-            return $collectedDiscountTransfer->getDiscount()->getAmount();
-        }, $collectedDiscounts);
-        $this->assertEqualsCanonicalizing($discountAmounts, [20, 30]);
+        $this->assertSame(30, $collectedDiscounts[0]->getDiscount()->getAmount());
+        $this->assertSame(25, $collectedDiscounts[1]->getDiscount()->getAmount());
     }
 
     /**
      * @return void
      */
-    public function testCalculateWhenCalculatorNotFoundShouldThrowException(): void
+    public function testCalculateWhenCalculatorNotFoundShouldThrowException()
     {
         $this->expectException(CalculatorException::class);
 
-        $discounts = [];
         $discounts[] = $this->createDiscountTransfer(70)->setIsExclusive(false)->setCalculatorPlugin('non existing');
 
         $quoteTransfer = $this->createQuoteTransfer();
@@ -489,9 +467,8 @@ class CalculatorTest extends Unit
     /**
      * @return void
      */
-    public function testCalculateWhenQueryBuilderThrowsExceptionShouldLogErrorAndReturnEmptyArray(): void
+    public function testCalculateWhenQueryBuilderThrowsExceptionShouldLogErrorAndReturnEmptyArray()
     {
-        $discounts = [];
         $discounts[] = $this->createDiscountTransfer(70)->setIsExclusive(false)->setCalculatorPlugin('non existing');
 
         $quoteTransfer = $this->createQuoteTransfer();
@@ -511,7 +488,7 @@ class CalculatorTest extends Unit
     /**
      * @return void
      */
-    public function testCalculateWhenDiscountableAmountPluginUsed(): void
+    public function testCalculateWhenDiscountableAmountPluginUsed()
     {
         $discountAmount = 100;
         $discountTransfer = $this->createDiscountTransfer($discountAmount);
@@ -554,7 +531,7 @@ class CalculatorTest extends Unit
     /**
      * @return \Generated\Shared\Transfer\QuoteTransfer
      */
-    protected function createQuoteTransfer(): QuoteTransfer
+    protected function createQuoteTransfer()
     {
         $quoteTransfer = new QuoteTransfer();
 
@@ -579,7 +556,8 @@ class CalculatorTest extends Unit
         ?DiscountToMessengerInterface $messengerFacadeMock = null,
         ?DistributorInterface $distributorMock = null,
         $calculatorPluginMock = null
-    ): Calculator {
+    ) {
+
         if (!$specificationBuilderMock) {
             $specificationBuilderMock = $this->createSpecificationBuilderMock();
         }
@@ -607,55 +585,54 @@ class CalculatorTest extends Unit
             $specificationBuilderMock,
             $messengerFacadeMock,
             $distributorMock,
-            $calculatorPlugins,
-            $this->getCollectedDiscountGroupingPlugins()
+            $calculatorPlugins
         );
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\SpecificationBuilderInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\SpecificationBuilderInterface
      */
-    protected function createSpecificationBuilderMock(): SpecificationBuilderInterface
+    protected function createSpecificationBuilderMock()
     {
         return $this->getMockBuilder(SpecificationBuilderInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Dependency\Facade\DiscountToMessengerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Dependency\Facade\DiscountToMessengerInterface
      */
-    protected function createMessengerFacadeBridgeMock(): DiscountToMessengerInterface
+    protected function createMessengerFacadeBridgeMock()
     {
         return $this->getMockBuilder(DiscountToMessengerInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Dependency\Plugin\DiscountCalculatorPluginInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Dependency\Plugin\DiscountCalculatorPluginInterface
      */
-    protected function createCalculatorPluginMock(): DiscountCalculatorPluginInterface
+    protected function createCalculatorPluginMock()
     {
         return $this->getMockBuilder(DiscountCalculatorPluginInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Dependency\Plugin\DiscountAmountCalculatorPluginInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Dependency\Plugin\DiscountAmountCalculatorPluginInterface
      */
-    protected function createCalculatorDiscountAmountPluginMock(): DiscountAmountCalculatorPluginInterface
+    protected function createCalculatorDiscountAmountPluginMock()
     {
         return $this->getMockBuilder(DiscountAmountCalculatorPluginInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\Distributor\DistributorInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\Distributor\DistributorInterface
      */
-    protected function createDistributorMock(): DistributorInterface
+    protected function createDistributorMock()
     {
         return $this->getMockBuilder(DistributorInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\CollectorSpecification\CollectorSpecificationInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\Specification\CollectorSpecification\CollectorSpecificationInterface
      */
-    protected function collectorSpecificationMock(): CollectorSpecificationInterface
+    protected function collectorSpecificationMock()
     {
         return $this->getMockBuilder(CollectorSpecificationInterface::class)->getMock();
     }
@@ -665,7 +642,7 @@ class CalculatorTest extends Unit
      *
      * @return \Generated\Shared\Transfer\DiscountableItemTransfer[]
      */
-    protected function createDiscountableItemsFromQuoteTransfer(QuoteTransfer $quoteTransfer): array
+    protected function createDiscountableItemsFromQuoteTransfer(QuoteTransfer $quoteTransfer)
     {
         $discountableItems = [];
         foreach ($quoteTransfer->getItems() as $itemTransfer) {
@@ -674,7 +651,6 @@ class CalculatorTest extends Unit
             $discountableItemTransfer->setOriginalItemCalculatedDiscounts($itemTransfer->getCalculatedDiscounts());
             $discountableItems[] = $discountableItemTransfer;
         }
-
         return $discountableItems;
     }
 
@@ -683,7 +659,7 @@ class CalculatorTest extends Unit
      *
      * @return \Generated\Shared\Transfer\DiscountTransfer
      */
-    protected function createDiscountTransfer(int $amount): DiscountTransfer
+    protected function createDiscountTransfer($amount)
     {
         $discountTransfer = new DiscountTransfer();
         $discountTransfer->setCalculatorPlugin('test');

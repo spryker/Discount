@@ -15,7 +15,6 @@ use SprykerTest\Zed\Discount\PageObject\DiscountViewPage;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -32,7 +31,7 @@ class DiscountListCest
      *
      * @return void
      */
-    public function showADiscountInList(DiscountPresentationTester $i, DiscountEditPage $editPage, DiscountViewPage $viewPage): void
+    public function showADiscountInList(DiscountPresentationTester $i, DiscountEditPage $editPage, DiscountViewPage $viewPage)
     {
         $name = 'Works as test discount';
         $discount = $i->haveDiscount(['displayName' => $name]);
@@ -62,7 +61,7 @@ class DiscountListCest
      *
      * @return void
      */
-    public function testPageShouldShowList(DiscountPresentationTester $i): void
+    public function testPageShouldShowList(DiscountPresentationTester $i)
     {
         $i->amOnPage(DiscountListPage::URL);
         $i->seeElement(DiscountListPage::SELECTOR_DATA_TABLE);

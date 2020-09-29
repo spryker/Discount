@@ -14,7 +14,6 @@ use Spryker\Zed\Discount\Business\QueryString\Comparator\LessEqual;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class LessEqualTest extends Unit
     /**
      * @return void
      */
-    public function testAcceptShouldReturnTrueWhenLessEqualExpressionProvided(): void
+    public function testAcceptShouldReturnTrueWhenLessEqualExpressionProvided()
     {
         $lessEqual = $this->createLessEqual();
 
@@ -44,7 +43,7 @@ class LessEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueLessClauseShouldReturnTrue(): void
+    public function testCompareWhenValueLessClauseShouldReturnTrue()
     {
         $lessEqual = $this->createLessEqual();
 
@@ -59,7 +58,7 @@ class LessEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueEqualClauseShouldReturnTrue(): void
+    public function testCompareWhenValueEqualClauseShouldReturnTrue()
     {
         $lessEqual = $this->createLessEqual();
 
@@ -74,7 +73,7 @@ class LessEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueNotLessThanClauseShouldReturnFalse(): void
+    public function testCompareWhenValueNotLessThanClauseShouldReturnFalse()
     {
         $lessEqual = $this->createLessEqual();
 
@@ -89,7 +88,7 @@ class LessEqualTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenNonNumericValueUsedShouldThrowException(): void
+    public function testCompareWhenNonNumericValueUsedShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -103,7 +102,7 @@ class LessEqualTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Comparator\LessEqual
      */
-    protected function createLessEqual(): LessEqual
+    protected function createLessEqual()
     {
         return new LessEqual();
     }

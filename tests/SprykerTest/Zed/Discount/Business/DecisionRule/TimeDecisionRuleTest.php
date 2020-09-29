@@ -15,7 +15,6 @@ use SprykerTest\Zed\Discount\Business\BaseRuleTester;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class TimeDecisionRuleTest extends BaseRuleTester
     /**
      * @return void
      */
-    public function testDecisionRuleShouldReturnTrueIfGivenDateMatchesClause(): void
+    public function testDecisionRuleShouldReturnTrueIfGivenDateMatchesClause()
     {
         $dateTime = new DateTime();
 
@@ -52,19 +51,16 @@ class TimeDecisionRuleTest extends BaseRuleTester
      * @param \Spryker\Zed\Discount\Business\QueryString\ComparatorOperatorsInterface $comparatorMock
      * @param \DateTime $currentDateTime
      *
-     * @return \Spryker\Zed\Discount\Business\DecisionRule\TimeDecisionRule|\PHPUnit\Framework\MockObject\MockObject
+     * @return \Spryker\Zed\Discount\Business\DecisionRule\CalendarWeekDecisionRule
      */
     protected function createTimeDecisionRule(
         ComparatorOperatorsInterface $comparatorMock,
         DateTime $currentDateTime
-    ): TimeDecisionRule {
-        /** @var \Spryker\Zed\Discount\Business\DecisionRule\TimeDecisionRule|\PHPUnit\Framework\MockObject\MockObject $timeDecisionRule */
-        $timeDecisionRule = $this->getMockBuilder(TimeDecisionRule::class)
-            ->setMethods(['getCurrentDateTime'])
-            ->setConstructorArgs([$comparatorMock])
-            ->getMock();
-        $timeDecisionRule->method('getCurrentDateTime')->willReturn($currentDateTime);
+    ) {
+        $calendarWeekDecisionRule = $this->getMockBuilder(TimeDecisionRule::class)->setMethods(['getCurrentDateTime'])->setConstructorArgs([$comparatorMock])->getMock();
 
-        return $timeDecisionRule;
+        $calendarWeekDecisionRule->method('getCurrentDateTime')->willReturn($currentDateTime);
+
+        return $calendarWeekDecisionRule;
     }
 }

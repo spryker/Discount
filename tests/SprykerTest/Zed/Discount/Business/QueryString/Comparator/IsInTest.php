@@ -15,7 +15,6 @@ use Spryker\Zed\Discount\Business\QueryString\ComparatorOperators;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -30,7 +29,7 @@ class IsInTest extends Unit
     /**
      * @return void
      */
-    public function testAcceptShouldReturnTrueWhenIsInExpressionProvided(): void
+    public function testAcceptShouldReturnTrueWhenIsInExpressionProvided()
     {
         $isIn = $this->createIsIn();
 
@@ -45,7 +44,7 @@ class IsInTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueIsInClauseShouldReturnTrue(): void
+    public function testCompareWhenValueIsInClauseShouldReturnTrue()
     {
         $isIn = $this->createIsIn();
 
@@ -62,7 +61,7 @@ class IsInTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueIsNotInClauseShouldReturnFalse(): void
+    public function testCompareWhenValueIsNotInClauseShouldReturnFalse()
     {
         $isIn = $this->createIsIn();
 
@@ -79,7 +78,7 @@ class IsInTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenNonScalarValueUsedShouldThrowException(): void
+    public function testCompareWhenNonScalarValueUsedShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -93,7 +92,7 @@ class IsInTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Comparator\IsIn
      */
-    protected function createIsIn(): IsIn
+    protected function createIsIn()
     {
         return new IsIn();
     }

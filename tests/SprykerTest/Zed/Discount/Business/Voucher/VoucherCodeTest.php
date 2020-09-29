@@ -15,7 +15,6 @@ use Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class VoucherCodeTest extends Unit
     /**
      * @return void
      */
-    public function testUseCodesShouldPersistIncrementedNumberOfUses(): void
+    public function testUseCodesShouldPersistIncrementedNumberOfUses()
     {
         $discountVoucherEntity = $this->createDiscountVoucherMock();
 
@@ -63,13 +62,13 @@ class VoucherCodeTest extends Unit
         $voucherCode = $this->createVoucherCode($discountQueryContainerMock);
         $updated = $voucherCode->useCodes(['123']);
 
-        $this->assertSame(1, $updated);
+        $this->assertEquals(1, $updated);
     }
 
     /**
      * @return void
      */
-    public function testUseVoucherCodesWhenThereIsNoVoucherShouldReturnFalse(): void
+    public function testUseVoucherCodesWhenThereIsNoVoucherShouldReturnFalse()
     {
         $discountQueryMock = $this->createDiscountQueryMock();
         $discountQueryMock->method('find')->willReturn([]);
@@ -81,13 +80,13 @@ class VoucherCodeTest extends Unit
         $voucherCode = $this->createVoucherCode($discountQueryContainerMock);
         $updated = $voucherCode->useCodes(['123']);
 
-        $this->assertSame(0, $updated);
+        $this->assertEquals(0, $updated);
     }
 
     /**
      * @return void
      */
-    public function testUseVoucherWhenVoucherNotActiveShouldNotUpdate(): void
+    public function testUseVoucherWhenVoucherNotActiveShouldNotUpdate()
     {
         $discountVoucherEntity = $this->createDiscountVoucherMock();
 
@@ -105,13 +104,13 @@ class VoucherCodeTest extends Unit
         $voucherCode = $this->createVoucherCode($discountQueryContainerMock);
         $updated = $voucherCode->useCodes(['123']);
 
-        $this->assertSame(0, $updated);
+        $this->assertEquals(0, $updated);
     }
 
     /**
      * @return void
      */
-    public function testUseVoucherShouldUpdateCounterForUnlimited(): void
+    public function testUseVoucherShouldUpdateCounterForUnlimited()
     {
         $discountVoucherEntity = $this->createDiscountVoucherMock();
 
@@ -141,13 +140,13 @@ class VoucherCodeTest extends Unit
         $voucherCode = $this->createVoucherCode($discountQueryContainerMock);
         $updated = $voucherCode->useCodes(['123']);
 
-        $this->assertSame(1, $updated);
+        $this->assertEquals(1, $updated);
     }
 
     /**
      * @return void
      */
-    public function testReleaseCodesShouldPersistDecrementedNumberOfUses(): void
+    public function testReleaseCodesShouldPersistDecrementedNumberOfUses()
     {
         $discountVoucherEntity = $this->createDiscountVoucherMock();
 
@@ -177,13 +176,13 @@ class VoucherCodeTest extends Unit
         $voucherCode = $this->createVoucherCode($discountQueryContainerMock);
         $updated = $voucherCode->releaseUsedCodes(['123']);
 
-        $this->assertSame(1, $updated);
+        $this->assertEquals(1, $updated);
     }
 
     /**
      * @return void
      */
-    public function testReleaseCodesNotVouchersFoundShouldReturnZeroUpdatedItems(): void
+    public function testReleaseCodesNotVouchersFoundShouldReturnZeroUpdatedItems()
     {
         $discountQueryMock = $this->createDiscountQueryMock();
         $discountQueryMock->method('find')->willReturn([]);
@@ -195,13 +194,13 @@ class VoucherCodeTest extends Unit
         $voucherCode = $this->createVoucherCode($discountQueryContainerMock);
         $updated = $voucherCode->releaseUsedCodes(['123']);
 
-        $this->assertSame(0, $updated);
+        $this->assertEquals(0, $updated);
     }
 
     /**
      * @return void
      */
-    public function testReleaseCodeWhenVoucherIsWithoutCounterShouldReturnZeroUpdatedItems(): void
+    public function testReleaseCodeWhenVoucherIsWithoutCounterShouldReturnZeroUpdatedItems()
     {
         $discountVoucherEntity = $this->createDiscountVoucherMock();
 
@@ -219,7 +218,7 @@ class VoucherCodeTest extends Unit
         $voucherCode = $this->createVoucherCode($discountQueryContainerMock);
         $updated = $voucherCode->releaseUsedCodes(['123']);
 
-        $this->assertSame(0, $updated);
+        $this->assertEquals(0, $updated);
     }
 
     /**
@@ -229,7 +228,8 @@ class VoucherCodeTest extends Unit
      */
     protected function createVoucherCode(
         ?DiscountQueryContainerInterface $discountQueryContainerMock = null
-    ): VoucherCode {
+    ) {
+
         if (!$discountQueryContainerMock) {
             $discountQueryContainerMock = $this->createDiscountQueryContainerMock();
         }
@@ -238,25 +238,25 @@ class VoucherCodeTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface
      */
-    protected function createDiscountQueryContainerMock(): DiscountQueryContainerInterface
+    protected function createDiscountQueryContainerMock()
     {
         return $this->getMockBuilder(DiscountQueryContainerInterface::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountQuery
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountQuery
      */
-    protected function createDiscountQueryMock(): SpyDiscountQuery
+    protected function createDiscountQueryMock()
     {
         return $this->getMockBuilder(SpyDiscountQuery::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountVoucher
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Orm\Zed\Discount\Persistence\SpyDiscountVoucher
      */
-    protected function createDiscountVoucherMock(): SpyDiscountVoucher
+    protected function createDiscountVoucherMock()
     {
         $discountVoucherEntity = $this->getMockBuilder(SpyDiscountVoucher::class)->getMock();
 

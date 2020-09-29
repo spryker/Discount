@@ -14,7 +14,6 @@ use SprykerTest\Zed\Discount\Business\BaseRuleTester;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -28,7 +27,7 @@ class TotalQuantityDecisionRuleTest extends BaseRuleTester
     /**
      * @return void
      */
-    public function testWhenTotalQuantityMatchesClauseShouldReturnTrue(): void
+    public function testWhenTotalQuantityMatchesClauseShouldReturnTrue()
     {
         $comparatorMock = $this->createComparatorMock();
         $comparatorMock->method('compare')->willReturnCallback(function (ClauseTransfer $clauseTransfer, $grandTotal) {
@@ -54,9 +53,9 @@ class TotalQuantityDecisionRuleTest extends BaseRuleTester
     /**
      * @param \Spryker\Zed\Discount\Business\QueryString\ComparatorOperatorsInterface|null $comparatorMock
      *
-     * @return \Spryker\Zed\Discount\Business\DecisionRule\TotalQuantityDecisionRule
+     * @return \Spryker\Zed\Discount\Business\DecisionRule\GrandTotalDecisionRule
      */
-    protected function createTotalQuantityDecisionRule(?ComparatorOperatorsInterface $comparatorMock = null): TotalQuantityDecisionRule
+    protected function createTotalQuantityDecisionRule(?ComparatorOperatorsInterface $comparatorMock = null)
     {
         if ($comparatorMock === null) {
             $comparatorMock = $this->createComparatorMock();

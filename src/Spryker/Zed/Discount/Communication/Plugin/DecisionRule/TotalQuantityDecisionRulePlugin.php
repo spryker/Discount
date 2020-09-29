@@ -17,14 +17,10 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
  * @method \Spryker\Zed\Discount\Communication\DiscountCommunicationFactory getFactory()
- * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
- * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
  */
 class TotalQuantityDecisionRulePlugin extends AbstractPlugin implements DecisionRulePluginInterface
 {
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -43,7 +39,6 @@ class TotalQuantityDecisionRulePlugin extends AbstractPlugin implements Decision
     }
 
     /**
-     * {@inheritDoc}
      * Name of field as used in query string
      *
      * @api
@@ -56,12 +51,11 @@ class TotalQuantityDecisionRulePlugin extends AbstractPlugin implements Decision
     }
 
     /**
-     * {@inheritDoc}
      * Data types used by this field. (string, integer, list)
      *
      * @api
      *
-     * @return string[]
+     * @return array
      */
     public function acceptedDataTypes()
     {

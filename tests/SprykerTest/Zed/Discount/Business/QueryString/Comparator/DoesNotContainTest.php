@@ -14,7 +14,6 @@ use Spryker\Zed\Discount\Business\QueryString\Comparator\DoesNotContain;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class DoesNotContainTest extends Unit
     /**
      * @return void
      */
-    public function testAcceptShouldReturnTrueWhenDoesNotContainExpressionProvided(): void
+    public function testAcceptShouldReturnTrueWhenDoesNotContainExpressionProvided()
     {
         $doesNotContain = $this->createDoesNotContains();
 
@@ -44,7 +43,7 @@ class DoesNotContainTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueNotExistingInClauseShouldReturnTrue(): void
+    public function testCompareWhenValueNotExistingInClauseShouldReturnTrue()
     {
         $doesNotContain = $this->createDoesNotContains();
 
@@ -59,7 +58,7 @@ class DoesNotContainTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueExistingInClauseShouldReturnFalse(): void
+    public function testCompareWhenValueExistingInClauseShouldReturnFalse()
     {
         $contains = $this->createDoesNotContains();
 
@@ -74,7 +73,7 @@ class DoesNotContainTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenNonScalarValueUsedShouldThrowException(): void
+    public function testCompareWhenNonScalarValueUsedShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -88,7 +87,7 @@ class DoesNotContainTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Comparator\DoesNotContain
      */
-    protected function createDoesNotContains(): DoesNotContain
+    protected function createDoesNotContains()
     {
         return new DoesNotContain();
     }

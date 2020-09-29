@@ -16,7 +16,6 @@ use Spryker\Zed\Discount\Business\QueryString\Specification\MetaData\MetaProvide
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -31,7 +30,7 @@ class MetaProviderFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateMetaProviderByTypeForDecisionRuleShouldReturnMetaProviderForDecisionRule(): void
+    public function testCreateMetaProviderByTypeForDecisionRuleShouldReturnMetaProviderForDecisionRule()
     {
         $discountBusinessFactoryMock = $this->createDiscountBusinessFactoryMock();
         $discountBusinessFactoryMock->expects($this->once())
@@ -58,7 +57,7 @@ class MetaProviderFactoryTest extends Unit
     /**
      * @return void
      */
-    public function testCreateMetaProviderByTypeForCollectorShouldReturnMetaProviderForCollector(): void
+    public function testCreateMetaProviderByTypeForCollectorShouldReturnMetaProviderForCollector()
     {
         $discountBusinessFactoryMock = $this->createDiscountBusinessFactoryMock();
         $discountBusinessFactoryMock->expects($this->once())
@@ -85,9 +84,9 @@ class MetaProviderFactoryTest extends Unit
     /**
      * @param \Spryker\Zed\Discount\Business\DiscountBusinessFactory|null $discountBusinessFactoryMock
      *
-     * @return \Spryker\Zed\Discount\Business\QueryString\Specification\MetaData\MetaProviderFactory
+     * @return \Spryker\Zed\Discount\Business\QueryString\Specification\MetaProviderFactory
      */
-    protected function createMetaProviderFactory(?DiscountBusinessFactory $discountBusinessFactoryMock = null): MetaProviderFactory
+    protected function createMetaProviderFactory(?DiscountBusinessFactory $discountBusinessFactoryMock = null)
     {
         if (!isset($discountBusinessFactoryMock)) {
             $discountBusinessFactoryMock = $this->createDiscountBusinessFactoryMock();
@@ -97,17 +96,17 @@ class MetaProviderFactoryTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\DiscountBusinessFactory
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\DiscountBusinessFactory
      */
-    protected function createDiscountBusinessFactoryMock(): DiscountBusinessFactory
+    protected function createDiscountBusinessFactoryMock()
     {
         return $this->getMockBuilder(DiscountBusinessFactory::class)->getMock();
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperators
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\ComparatorOperators
      */
-    protected function createComparatorOperatorsMock(): ComparatorOperators
+    protected function createComparatorOperatorsMock()
     {
         return $this->getMockBuilder(ComparatorOperators::class)
             ->disableOriginalConstructor()
@@ -115,9 +114,9 @@ class MetaProviderFactoryTest extends Unit
     }
 
     /**
-     * @return \PHPUnit\Framework\MockObject\MockObject|\Spryker\Zed\Discount\Business\QueryString\LogicalComparators
+     * @return \PHPUnit_Framework_MockObject_MockObject|\Spryker\Zed\Discount\Business\QueryString\LogicalComparators
      */
-    protected function createLogicalComparatorsMock(): LogicalComparators
+    protected function createLogicalComparatorsMock()
     {
         return $this->getMockBuilder(LogicalComparators::class)->getMock();
     }

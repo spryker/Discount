@@ -11,7 +11,6 @@ use SprykerTest\Zed\Discount\DiscountCommunicationTester;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -27,7 +26,7 @@ class IndexControllerCest
      *
      * @return void
      */
-    public function testICanOpenDiscountPage(DiscountCommunicationTester $i): void
+    public function testICanOpenDiscountPage(DiscountCommunicationTester $i)
     {
         $i->amOnPage('/discount/index/list');
         $i->seeResponseCodeIs(200);
@@ -38,7 +37,7 @@ class IndexControllerCest
      *
      * @return void
      */
-    public function testICanGoFromOverviewPageToCreatePage(DiscountCommunicationTester $i): void
+    public function testICanGoFromOverviewPageToCreatePage(DiscountCommunicationTester $i)
     {
         $i->registerStoreRelationToggleFormTypePlugin();
 

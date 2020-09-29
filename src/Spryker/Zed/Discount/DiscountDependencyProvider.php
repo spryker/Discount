@@ -33,9 +33,6 @@ use Spryker\Zed\Kernel\AbstractBundleDependencyProvider;
 use Spryker\Zed\Kernel\Communication\Form\FormTypeInterface;
 use Spryker\Zed\Kernel\Container;
 
-/**
- * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
- */
 class DiscountDependencyProvider extends AbstractBundleDependencyProvider
 {
     public const FACADE_MESSENGER = 'MESSENGER_FACADE';
@@ -57,7 +54,6 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
     public const PLUGIN_DISCOUNTABLE_ITEM_TRANSFORMER_STRATEGY = 'PLUGIN_DISCOUNTABLE_ITEM_TRANSFORMER_STRATEGY';
     public const DECISION_RULE_PLUGINS = 'DECISION_RULE_PLUGINS';
     public const CALCULATOR_PLUGINS = 'CALCULATOR_PLUGINS';
-    public const COLLECTED_DISCOUNT_GROUPING_PLUGINS = 'COLLECTED_DISCOUNT_GROUPING_PLUGINS';
     public const COLLECTOR_PLUGINS = 'COLLECTOR_PLUGINS';
     public const PLUGIN_STORE_RELATION_FORM_TYPE = 'PLUGIN_STORE_RELATION_FORM_TYPE';
 
@@ -70,7 +66,6 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
     {
         $container = $this->addMessengerFacade($container);
         $container = $this->addCalculatorPlugins($container);
-        $container = $this->addCollectedDiscountGroupingPlugins($container);
         $container = $this->addDecisionRulePlugins($container);
         $container = $this->addCollectorPlugins($container);
         $container = $this->addDiscountableItemFilterPlugins($container);
@@ -119,14 +114,6 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
-     * @return \Spryker\Zed\DiscountExtension\Dependency\Plugin\CollectedDiscountGroupingStrategyPluginInterface[]
-     */
-    protected function getCollectedDiscountGroupingPlugins(): array
-    {
-        return [];
-    }
-
-    /**
      * @return \Spryker\Zed\DiscountExtension\Dependency\Plugin\DiscountableItemTransformerStrategyPluginInterface[]
      */
     protected function getDiscountableItemTransformerStrategyPlugins(): array
@@ -168,6 +155,7 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
     }
 
     /**
+     *
      * This is additional filter applied to discountable items, the plugins are triggered after discount collectors run
      * this ensures that certain items are never picked by discount calculation and removed from DiscountableItem stack.
      *
@@ -185,11 +173,11 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addMoneyFacade(Container $container)
     {
-        $container->set(static::FACADE_MONEY, function (Container $container) {
+        $container[static::FACADE_MONEY] = function (Container $container) {
             $discountToMoneyBridge = new DiscountToMoneyBridge($container->getLocator()->money()->facade());
 
             return $discountToMoneyBridge;
-        });
+        };
 
         return $container;
     }
@@ -201,9 +189,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addMessengerFacade(Container $container)
     {
-        $container->set(static::FACADE_MESSENGER, function (Container $container) {
+        $container[static::FACADE_MESSENGER] = function (Container $container) {
             return new DiscountToMessengerBridge($container->getLocator()->messenger()->facade());
-        });
+        };
 
         return $container;
     }
@@ -215,23 +203,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCalculatorPlugins(Container $container)
     {
-        $container->set(static::CALCULATOR_PLUGINS, function () {
+        $container[static::CALCULATOR_PLUGINS] = function () {
             return $this->getAvailableCalculatorPlugins();
-        });
-
-        return $container;
-    }
-
-    /**
-     * @param \Spryker\Zed\Kernel\Container $container
-     *
-     * @return \Spryker\Zed\Kernel\Container
-     */
-    protected function addCollectedDiscountGroupingPlugins(Container $container): Container
-    {
-        $container->set(static::COLLECTED_DISCOUNT_GROUPING_PLUGINS, function () {
-            return $this->getCollectedDiscountGroupingPlugins();
-        });
+        };
 
         return $container;
     }
@@ -243,9 +217,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDecisionRulePlugins(Container $container)
     {
-        $container->set(static::DECISION_RULE_PLUGINS, function () {
+        $container[static::DECISION_RULE_PLUGINS] = function () {
             return $this->getDecisionRulePlugins();
-        });
+        };
 
         return $container;
     }
@@ -257,9 +231,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCollectorPlugins(Container $container)
     {
-        $container->set(static::COLLECTOR_PLUGINS, function () {
+        $container[static::COLLECTOR_PLUGINS] = function () {
             return $this->getCollectorPlugins();
-        });
+        };
 
         return $container;
     }
@@ -271,9 +245,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDiscountableItemFilterPlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNTABLE_ITEM_FILTER, function () {
+        $container[static::PLUGIN_DISCOUNTABLE_ITEM_FILTER] = function () {
             return $this->getDiscountableItemFilterPlugins();
-        });
+        };
 
         return $container;
     }
@@ -285,9 +259,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCollectorStrategyPlugins(Container $container)
     {
-        $container->set(static::PLUGIN_COLLECTOR_STRATEGY_PLUGINS, function () {
+        $container[static::PLUGIN_COLLECTOR_STRATEGY_PLUGINS] = function () {
             return $this->getCollectorStrategyPlugins();
-        });
+        };
 
         return $container;
     }
@@ -307,9 +281,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDiscountPostCreatePlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNT_POST_CREATE, function () {
+        $container[static::PLUGIN_DISCOUNT_POST_CREATE] = function () {
             return $this->getDiscountPostCreatePlugins();
-        });
+        };
 
         return $container;
     }
@@ -329,9 +303,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDiscountPostUpdatePlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNT_POST_UPDATE, function () {
+        $container[static::PLUGIN_DISCOUNT_POST_UPDATE] = function () {
             return $this->getDiscountPostUpdatePlugins();
-        });
+        };
 
         return $container;
     }
@@ -351,9 +325,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addDiscountConfigurationExpanderPlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNT_CONFIGURATION_EXPANDER, function () {
+        $container[static::PLUGIN_DISCOUNT_CONFIGURATION_EXPANDER] = function () {
             return $this->getDiscountConfigurationExpanderPlugins();
-        });
+        };
 
         return $container;
     }
@@ -375,9 +349,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     public function addDiscountFormExpanderPlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNT_FORM_TYPE_EXPANDER, function () {
+        $container[static::PLUGIN_DISCOUNT_FORM_TYPE_EXPANDER] = function () {
             return $this->getDiscountFormExpanderPlugins();
-        });
+        };
 
         return $container;
     }
@@ -399,9 +373,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDiscountFormDataProviderExpanderPlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNT_FORM_DATA_PROVIDER_EXPANDER, function () {
+        $container[static::PLUGIN_DISCOUNT_FORM_DATA_PROVIDER_EXPANDER] = function () {
             return $this->getDiscountFormDataProviderExpanderPlugins();
-        });
+        };
 
         return $container;
     }
@@ -421,9 +395,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDiscountViewBlockProviderPlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNT_VIEW_BLOCK_PROVIDER, function () {
+        $container[static::PLUGIN_DISCOUNT_VIEW_BLOCK_PROVIDER] = function () {
             return $this->getDiscountViewTemplateProviderPlugins();
-        });
+        };
 
         return $container;
     }
@@ -443,9 +417,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDiscountApplicableFilterPlugins(Container $container)
     {
-        $container->set(static::PLUGIN_DISCOUNT_APPLICABLE_FILTER_PLUGINS, function () {
+        $container[static::PLUGIN_DISCOUNT_APPLICABLE_FILTER_PLUGINS] = function () {
             return $this->getDiscountApplicableFilterPlugins();
-        });
+        };
 
         return $container;
     }
@@ -465,9 +439,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addCurrencyFacade(Container $container)
     {
-        $container->set(static::FACADE_CURRENCY, function (Container $container) {
+        $container[static::FACADE_CURRENCY] = function (Container $container) {
             return new DiscountToCurrencyBridge($container->getLocator()->currency()->facade());
-        });
+        };
 
         return $container;
     }
@@ -479,9 +453,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addStoreFacade(Container $container)
     {
-        $container->set(static::FACADE_STORE, function (Container $container) {
+        $container[static::FACADE_STORE] = function (Container $container) {
             return new DiscountToStoreFacadeBridge($container->getLocator()->store()->facade());
-        });
+        };
 
         return $container;
     }
@@ -493,10 +467,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addStoreRelationFormTypePlugin(Container $container)
     {
-        $container->set(static::PLUGIN_STORE_RELATION_FORM_TYPE, function () {
+        $container[static::PLUGIN_STORE_RELATION_FORM_TYPE] = function () {
             return $this->getStoreRelationFormTypePlugin();
-        });
-
+        };
         return $container;
     }
 
@@ -507,9 +480,9 @@ class DiscountDependencyProvider extends AbstractBundleDependencyProvider
      */
     protected function addDiscountableItemExpanderStrategyPlugins(Container $container): Container
     {
-        $container->set(static::PLUGIN_DISCOUNTABLE_ITEM_TRANSFORMER_STRATEGY, function () {
+        $container[static::PLUGIN_DISCOUNTABLE_ITEM_TRANSFORMER_STRATEGY] = function () {
             return $this->getDiscountableItemTransformerStrategyPlugins();
-        });
+        };
 
         return $container;
     }

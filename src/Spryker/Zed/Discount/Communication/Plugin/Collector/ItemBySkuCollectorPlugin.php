@@ -4,7 +4,6 @@
  * Copyright © 2016-present Spryker Systems GmbH. All rights reserved.
  * Use of this software requires acceptance of the Evaluation License Agreement. See LICENSE file.
  */
-
 namespace Spryker\Zed\Discount\Communication\Plugin\Collector;
 
 use Generated\Shared\Transfer\ClauseTransfer;
@@ -16,14 +15,10 @@ use Spryker\Zed\Kernel\Communication\AbstractPlugin;
 /**
  * @method \Spryker\Zed\Discount\Business\DiscountFacadeInterface getFacade()
  * @method \Spryker\Zed\Discount\Communication\DiscountCommunicationFactory getFactory()
- * @method \Spryker\Zed\Discount\DiscountConfig getConfig()
- * @method \Spryker\Zed\Discount\Persistence\DiscountQueryContainerInterface getQueryContainer()
  */
 class ItemBySkuCollectorPlugin extends AbstractPlugin implements CollectorPluginInterface
 {
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
      * @param \Generated\Shared\Transfer\QuoteTransfer $quoteTransfer
@@ -37,7 +32,6 @@ class ItemBySkuCollectorPlugin extends AbstractPlugin implements CollectorPlugin
     }
 
     /**
-     * {@inheritDoc}
      * Name of field as used in query string
      *
      * @api
@@ -50,11 +44,9 @@ class ItemBySkuCollectorPlugin extends AbstractPlugin implements CollectorPlugin
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @api
      *
-     * @return string[]
+     * @return array
      */
     public function acceptedDataTypes()
     {

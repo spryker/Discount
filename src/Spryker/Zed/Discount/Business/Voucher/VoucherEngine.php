@@ -171,7 +171,6 @@ class VoucherEngine implements VoucherEngineInterface
 
             if ($this->voucherCodeExists($code) === true) {
                 $codeCollisions++;
-
                 continue;
             }
 
@@ -179,7 +178,6 @@ class VoucherEngine implements VoucherEngineInterface
 
             $this->createVoucherCode($discountVoucherTransfer);
         }
-
         return $codeCollisions;
     }
 

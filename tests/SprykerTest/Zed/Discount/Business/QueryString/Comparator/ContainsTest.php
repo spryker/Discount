@@ -14,7 +14,6 @@ use Spryker\Zed\Discount\Business\QueryString\Comparator\Contains;
 
 /**
  * Auto-generated group annotations
- *
  * @group SprykerTest
  * @group Zed
  * @group Discount
@@ -29,7 +28,7 @@ class ContainsTest extends Unit
     /**
      * @return void
      */
-    public function testAcceptShouldReturnTrueWhenContainsExpressionProvided(): void
+    public function testAcceptShouldReturnTrueWhenContainsExpressionProvided()
     {
         $contains = $this->createContains();
 
@@ -44,7 +43,7 @@ class ContainsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueExistsInClauseShouldReturnTrue(): void
+    public function testCompareWhenValueExistsInClauseShouldReturnTrue()
     {
         $contains = $this->createContains();
 
@@ -59,7 +58,7 @@ class ContainsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenValueNotExistingInClauseShouldReturnFalse(): void
+    public function testCompareWhenValueNotExistingInClauseShouldReturnFalse()
     {
         $contains = $this->createContains();
 
@@ -74,7 +73,7 @@ class ContainsTest extends Unit
     /**
      * @return void
      */
-    public function testCompareWhenNonScalarValueUsedShouldThrowException(): void
+    public function testCompareWhenNonScalarValueUsedShouldThrowException()
     {
         $this->expectException(ComparatorException::class);
 
@@ -88,7 +87,7 @@ class ContainsTest extends Unit
     /**
      * @return \Spryker\Zed\Discount\Business\QueryString\Comparator\Contains
      */
-    protected function createContains(): Contains
+    protected function createContains()
     {
         return new Contains();
     }
